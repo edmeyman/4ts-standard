@@ -4,7 +4,8 @@
 **Steward:** FERZ LLC  
 **License:** CC BY-NC-ND 4.0 (specification), MIT (schemas/test vectors)
 
-> **The TCP/IP layer for AI governance**
+> **The TCP/IP layer for AI governance
+Ensure consequential AI decisions are stop-capable, owned, replayable, and escalatable—by design.**
 
 ## Overview
 
