@@ -350,9 +350,9 @@ Contact contact@ferzconsulting.com for information.
 
 ### How can I stay updated?
 
-- **Watch** the [GitHub repository](https://github.com/ferz-ai/4ts-standard)
+- **Watch** the [GitHub repository](https://github.com/edmeyman/4ts-standard/)
 - **Subscribe** to release notifications
-- **Follow** FERZ on [LinkedIn](https://linkedin.com/company/ferz-ai)
+- **Follow** FERZ on [LinkedIn](https://www.linkedin.com/company/ferzllc/)
 - **Visit** https://ferz.ai for announcements
 
 ---
