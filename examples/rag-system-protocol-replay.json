@@ -1,0 +1,120 @@
+{
+  "pcd_spec_version": "1.0.2",
+  "decision": {
+    "id": "inference-rag-rec-87234",
+    "boundary": "inference",
+    "outcome": "approved",
+    "effective_window": {
+      "start": "2025-11-08T10:15:00Z"
+    },
+    "routed": false,
+    "replayable": true,
+    "counterfactual": {
+      "flip_var": "gate-attribution-threshold",
+      "explanation": "If attribution score < 0.85, decision would escalate"
+    }
+  },
+  "artifacts": {
+    "models": [
+      {
+        "id": "llm-finance-v3",
+        "sha256": "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069"
+      }
+    ],
+    "data": [
+      {
+        "id": "corpus-snapshot-2025-11-08",
+        "sha256": "9c3f9e8eb8d14e1c7f9f9e8eb8d14e1c9c3f9e8eb8d14e1c7f9f9e8eb8d14e1c"
+      }
+    ],
+    "prompts": [
+      {
+        "id": "investment-recommendation-template",
+        "sha256": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b"
+      }
+    ]
+  },
+  "lineage": [
+    {
+      "id": "step-1-retrieval",
+      "op": "vector_search",
+      "types": {
+        "inputs": ["query", "corpus"],
+        "outputs": ["retrieved_docs"]
+      },
+      "inputs": ["user-query-87234", "corpus-snapshot-2025-11-08"],
+      "outputs": ["retrieved-docs-set-001"],
+      "policy_refs": ["sec-compliance-rag-policy"],
+      "stochastic": true
+    },
+    {
+      "id": "step-2-generation",
+      "op": "llm_generate",
+      "types": {
+        "inputs": ["retrieved_docs", "prompt_template"],
+        "outputs": ["recommendation"]
+      },
+      "inputs": ["retrieved-docs-set-001", "investment-recommendation-template"],
+      "outputs": ["recommendation-87234"],
+      "policy_refs": ["sec-compliance-rag-policy"],
+      "stochastic": true
+    },
+    {
+      "id": "step-3-validation",
+      "op": "validate_attribution",
+      "types": {
+        "inputs": ["recommendation", "retrieved_docs"],
+        "outputs": ["attribution_score"]
+      },
+      "inputs": ["recommendation-87234", "retrieved-docs-set-001"],
+      "outputs": ["attribution-score-0.91"],
+      "policy_refs": ["sec-compliance-rag-policy"],
+      "stochastic": false
+    }
+  ],
+  "controls": {
+    "fail_closed": true,
+    "policy_dsl": "internal-v1",
+    "replay": {
+      "strategy": "protocol"
+    },
+    "policy_invariants": {
+      "gates": [
+        {
+          "id": "gate-1-attribution",
+          "metric": "attribution_score",
+          "dataset": "step-3-validation-output",
+          "op": ">=",
+          "value": 0.85
+        },
+        {
+          "id": "gate-2-corpus-frozen",
+          "metric": "corpus_hash",
+          "dataset": "corpus-snapshot-2025-11-08",
+          "op": "==",
+          "value": "9c3f9e8eb8d14e1c7f9f9e8eb8d14e1c9c3f9e8eb8d14e1c7f9f9e8eb8d14e1c"
+        }
+      ]
+    }
+  },
+  "attestations": {
+    "canonical_hash": "8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e",
+    "signatures": [
+      {
+        "key_id": "runtime-key-012",
+        "algorithm": "EdDSA",
+        "signature": "9e8f7d6c5b4a3928170e9d8c7b6a5948372819e0d9c8b7a6958473829d1e0c9b",
+        "role": "runtime"
+      }
+    ],
+    "timestamps": {
+      "policy_signed": "2025-11-01T00:00:00Z",
+      "exec_start": "2025-11-08T10:15:02Z",
+      "exec_end": "2025-11-08T10:15:08Z"
+    },
+    "key_roles": {
+      "policy": ["policy-key-003"],
+      "runtime": ["runtime-key-012"]
+    }
+  }
+}

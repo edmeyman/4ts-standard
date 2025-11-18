@@ -1,0 +1,13 @@
+# 4TS Standard - Python Requirements
+# For running validator and tools
+
+# Core dependencies
+jsonschema>=4.17.0
+python-dateutil>=2.8.2
+
+# Optional: for enhanced validation
+cryptography>=41.0.0  # For signature verification
+pyyaml>=6.0  # For YAML config support
+
+# Development dependencies (install with: pip install -r requirements-dev.txt)
+# See requirements-dev.txt for testing/linting tools

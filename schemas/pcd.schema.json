@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ferz-ai/4ts-standard/schemas/pcd.schema.json",
+  "title": "Proof-Carrying Decision (PCD)",
+  "description": "Schema for 4TS Proof-Carrying Decisions v1.0.2",
+  "type": "object",
+  "required": [
+    "pcd_spec_version",
+    "decision",
+    "artifacts",
+    "lineage",
+    "controls",
+    "attestations"
+  ],
+  "properties": {
+    "pcd_spec_version": {
+      "type": "string",
+      "pattern": "^1\\.\\d+\\.\\d+$",
+      "description": "PCD specification version (semantic versioning)"
+    },
+    "decision": {
+      "type": "object",
+      "required": ["id", "boundary", "outcome", "effective_window", "routed", "replayable"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique decision identifier"
+        },
+        "boundary": {
+          "type": "string",
+          "enum": ["deploy", "policy", "inference"],
+          "description": "Decision boundary type"
+        },
+        "outcome": {
+          "type": "string",
+          "enum": ["approved", "denied", "escalated"],
+          "description": "Decision outcome"
+        },
+        "effective_window": {
+          "type": "object",
+          "required": ["start"],
+          "properties": {
+            "start": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 timestamp"
+            },
+            "end": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Optional end timestamp"
+            }
+          }
+        },
+        "routed": {
+          "type": "boolean",
+          "description": "Whether decision was routed to human custody"
+        },
+        "replayable": {
+          "type": "boolean",
+          "description": "Whether decision can be replayed"
+        },
+        "counterfactual": {
+          "type": "object",
+          "properties": {
+            "flip_var": {
+              "type": "string",
+              "description": "Minimal policy variable that would flip decision"
+            },
+            "explanation": {
+              "type": "string",
+              "description": "Human-readable explanation of counterfactual"
+            }
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "properties": {
+        "models": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        },
+        "policies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        },
+        "prompts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        },
+        "config": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        }
+      }
+    },
+    "lineage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "op", "types", "inputs", "outputs", "stochastic"],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "op": {
+            "type": "string"
+          },
+          "types": {
+            "type": "object",
+            "required": ["inputs", "outputs"],
+            "properties": {
+              "inputs": {
+                "type": "array",
+                "items": {"type": "string"}
+              },
+              "outputs": {
+                "type": "array",
+                "items": {"type": "string"}
+              }
+            }
+          },
+          "inputs": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "outputs": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "policy_refs": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "stochastic": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "required": ["fail_closed", "replay"],
+      "properties": {
+        "fail_closed": {
+          "type": "boolean"
+        },
+        "policy_dsl": {
+          "type": "string"
+        },
+        "replay": {
+          "type": "object",
+          "required": ["strategy"],
+          "properties": {
+            "strategy": {
+              "type": "string",
+              "enum": ["state", "protocol"]
+            }
+          }
+        },
+        "policy_invariants": {
+          "type": "object",
+          "properties": {
+            "gates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "metric", "dataset", "op", "value"],
+                "properties": {
+                  "id": {"type": "string"},
+                  "metric": {"type": "string"},
+                  "dataset": {"type": "string"},
+                  "op": {"type": "string", "enum": ["==", "!=", ">", ">=", "<", "<="]},
+                  "value": {"type": ["string", "number", "boolean"]},
+                  "group_by": {"type": "string"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "attestations": {
+      "type": "object",
+      "required": ["canonical_hash", "signatures", "timestamps", "key_roles"],
+      "properties": {
+        "canonical_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA-256 hash of canonicalized PCD"
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["key_id", "algorithm", "signature", "role"],
+            "properties": {
+              "key_id": {"type": "string"},
+              "algorithm": {"type": "string", "enum": ["EdDSA", "ECDSA", "RSA"]},
+              "signature": {"type": "string"},
+              "role": {"type": "string", "enum": ["policy", "runtime", "approver"]}
+            }
+          }
+        },
+        "timestamps": {
+          "type": "object",
+          "required": ["policy_signed", "exec_start", "exec_end"],
+          "properties": {
+            "policy_signed": {"type": "string", "format": "date-time"},
+            "exec_start": {"type": "string", "format": "date-time"},
+            "exec_end": {"type": "string", "format": "date-time"}
+          }
+        },
+        "key_roles": {
+          "type": "object",
+          "required": ["policy", "runtime"],
+          "properties": {
+            "policy": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "runtime": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "required": ["id", "sha256"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "merkle_root": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "chunks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["i", "size", "sha256"],
+            "properties": {
+              "i": {"type": "integer", "minimum": 0},
+              "size": {"type": "integer", "minimum": 1},
+              "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+            }
+          }
+        }
+      }
+    }
+  }
+}
