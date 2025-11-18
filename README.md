@@ -27,6 +27,8 @@ The Four Tests Standard (4TS) is a vendor-neutral technical specification for ve
 
 ## Quick Start
 
+*Enable auditors to verify AI compliance mathematically rather than through sampling—deterministic verification at decision boundaries.*
+
 ### Installation
 
 ```bash
