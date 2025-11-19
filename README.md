@@ -25,18 +25,6 @@ Available on:
 
 ---
 
-### 🛠️ Technical Implementation Note
-
-**4TS Technical Specification v1.0.2: Open-Source Implementation and Conformance Framework**  
-Edward Meyman | November 2025
-
-Available on:
-- [ResearchGate](https://www.researchgate.net/publication/[ID_WHEN_PUBLISHED]) *(coming soon)*
-
-*Bridges theory to practice with complete implementation guide, code examples, and conformance testing framework.*
-
----
-
 **How to Cite:**
 ```
 Meyman, E. (2025). Verifiable AI Governance: The Four Tests Standard (4TS) 
