@@ -12,17 +12,36 @@
 
 ## 📄 Academic Publications
 
-**Theory & Formal Specification:**
-- **Paper:** [Verifiable AI Governance: The Four Tests Standard (4TS) and Proof-Carrying Decisions](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)  
-  *Edward Meyman (October 2025)*  
-  SSRN | [ResearchGate](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
+### 📖 Foundational Paper
 
-**Implementation & Technical Resources:**
-- **Technical Note:** [4TS Technical Specification v1.0.2: Open-Source Implementation and Conformance Framework](https://www.researchgate.net/publication/[ID_WHEN_PUBLISHED])  
-  *Edward Meyman (November 2025)*  
-  ResearchGate
+**Verifiable AI Governance: The Four Tests Standard (4TS) and Proof-Carrying Decisions**  
+Edward Meyman | October 2025
 
-> **Citation:** Meyman, E. (2025). Verifiable AI Governance: The Four Tests Standard (4TS) and Proof-Carrying Decisions. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982
+Available on:
+- [SSRN (Primary)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
+- [ResearchGate](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
+
+*Establishes formal specification, theoretical foundations, and proof of necessary and sufficient conditions for verifiable AI governance.*
+
+---
+
+### 🛠️ Technical Implementation Note
+
+**4TS Technical Specification v1.0.2: Open-Source Implementation and Conformance Framework**  
+Edward Meyman | November 2025
+
+Available on:
+- [ResearchGate](https://www.researchgate.net/publication/[ID_WHEN_PUBLISHED]) *(coming soon)*
+
+*Bridges theory to practice with complete implementation guide, code examples, and conformance testing framework.*
+
+---
+
+**How to Cite:**
+```
+Meyman, E. (2025). Verifiable AI Governance: The Four Tests Standard (4TS) 
+and Proof-Carrying Decisions. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982
+```
 
 ## Overview
 
@@ -50,7 +69,7 @@ The Four Tests Standard (4TS) is a vendor-neutral technical specification for ve
 
 ```bash
 # Clone the repository
-git clone https://github.com/ferz-ai/4ts-standard.git
+git clone https://github.com/edmeyman/4ts-standard.git
 cd 4ts-standard
 
 # Install dependencies (Python 3.10+)
@@ -181,8 +200,8 @@ See [SPECIFICATION.md](SPECIFICATION.md) §7 for complete conformance requiremen
 
 ## Community & Support
 
-- **Issues & Bugs:** [GitHub Issues](https://github.com/ferz-ai/4ts-standard/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/ferz-ai/4ts-standard/discussions)
+- **Issues & Bugs:** [GitHub Issues](https://github.com/edmeyman/4ts-standard/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions)
 - **Email:** contact@ferzconsulting.com
 - **Website:** https://ferz.ai
 
