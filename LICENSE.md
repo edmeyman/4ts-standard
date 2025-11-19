@@ -152,7 +152,7 @@ If you believe implementation of this standard infringes your patents, contact: 
 For licensing questions:
 - **General:** contact@ferzconsulting.com
 - **Commercial licensing:** contact@ferzconsulting.com
-- **Technical support:** https://github.com/ferz-ai/4ts-standard/issues
+- **Technical support:** https://github.com/edmeyman/4ts-standard/issues
 - **Trademark licensing:** contact@ferzconsulting.com
 
 ---
