@@ -9,7 +9,6 @@
 
 [![SSRN](https://img.shields.io/badge/SSRN-5688982-blue)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
 [![ResearchGate](https://img.shields.io/badge/ResearchGate-Publication-00CCBB)](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
-[![DOI](https://img.shields.io/badge/DOI-10.13140/RG.2.2.17500.24962-orange)](https://doi.org/10.13140/RG.2.2.17500.24962)
 
 ## 📄 Academic Publications
 
