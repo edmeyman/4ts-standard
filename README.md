@@ -1,4 +1,4 @@
-# Four Tests Standard (4TS)
+# Four Tests Standard (4TS) - Verifiable AI Governance
 
 **Version:** 1.0.2  
 **Steward:** FERZ LLC  
@@ -6,6 +6,24 @@
 
 > **The TCP/IP layer for AI governance**  
 > Ensure consequential AI decisions are stop-capable, owned, replayable, and escalatable—by design.
+
+[![SSRN](https://img.shields.io/badge/SSRN-5688982-blue)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
+[![ResearchGate](https://img.shields.io/badge/ResearchGate-Publication-00CCBB)](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
+[![DOI](https://img.shields.io/badge/DOI-10.13140/RG.2.2.17500.24962-orange)](https://doi.org/10.13140/RG.2.2.17500.24962)
+
+## 📄 Academic Publications
+
+**Theory & Formal Specification:**
+- **Paper:** [Verifiable AI Governance: The Four Tests Standard (4TS) and Proof-Carrying Decisions](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)  
+  *Edward Meyman (October 2025)*  
+  SSRN | [ResearchGate](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
+
+**Implementation & Technical Resources:**
+- **Technical Note:** [4TS Technical Specification v1.0.2: Open-Source Implementation and Conformance Framework](https://www.researchgate.net/publication/[ID_WHEN_PUBLISHED])  
+  *Edward Meyman (November 2025)*  
+  ResearchGate
+
+> **Citation:** Meyman, E. (2025). Verifiable AI Governance: The Four Tests Standard (4TS) and Proof-Carrying Decisions. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982
 
 ## Overview
 
