@@ -199,6 +199,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Maintained by:** FERZ LLC  
 **Contact:** contact@ferzconsulting.com  
-**Repository:** https://github.com/ferz-ai/4ts-standard
+**Repository:** https://github.com/edmeyman/4ts-standard
 
 For detailed specification changes, see commit history and pull requests.
