@@ -236,4 +236,4 @@ For commercial licensing inquiries: contact@ferzconsulting.com
 
 ---
 
-**© 2025 FERZ LLC** | Vendor-neutral open standard for verifiable AI governance
+**© 2026 FERZ Inc.** | Vendor-neutral open standard for verifiable AI governance
