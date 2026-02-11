@@ -13,6 +13,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Visual PCD explorer tool
 - Interactive conformance checker
 
+## [1.0.3] - 2026-02-11
+
+### Added
+- **Enforcement Triad** — Normative verdict types (ALLOW, DENY, ABSTAIN) added to README and specification
+  - `ALLOW`: Action authorized under governing policy; execution proceeds with effect-token issuance
+  - `DENY`: Policy violation identified; execution halted with no side-effects permitted
+  - `ABSTAIN`: Insufficient confidence to render a verdict; authority explicitly returned with action blocked pending human resolution
+- **ABSTAIN operational contract** — `ABSTAIN` must be treated as `DENY` by default unless an authorized override occurs; triggers mandatory escalation to human-in-the-loop queue or policy authority review
+- **Epistemic boundary acknowledgment** — Formal recognition that governance systems must know when *not* to answer, distinguishing completion-optimizing systems from correctness-optimizing systems
+
+### Changed
+- Updated README with new "The Enforcement Triad" section between The Four Tests table and Quick Start
+- Aligned README verdict semantics with AI Governance Taxonomy v1.5
+
+### Fixed
+- Corrected repository URL in documentation from `https://github.com/ferz-ai/4ts-standard` to `https://github.com/edmeyman/4ts-standard`
+
 ## [1.0.2] - 2025-11-18
 
 ### Added
@@ -149,7 +166,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Normative references (JSON Schema, RFC 3339, SHA-256, EdDSA/ECDSA)
 
 ### Support
-- GitHub repository: https://github.com/ferz-ai/4ts-standard
+- GitHub repository: https://github.com/edmeyman/4ts-standard
 - Issue tracker for bug reports and feature requests
 - Email support: contact@ferzconsulting.com
 - Website: https://ferz.ai
@@ -197,7 +214,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-**Maintained by:** FERZ LLC  
+**Maintained by:** FERZ Inc.  
 **Contact:** contact@ferzconsulting.com  
 **Repository:** https://github.com/edmeyman/4ts-standard
 

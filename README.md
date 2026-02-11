@@ -1,6 +1,6 @@
 # Four Tests Standard (4TS) - Verifiable AI Governance
 
-**Version:** 1.0.2  
+**Version:** 1.0.3  
 **Steward:** FERZ LLC  
 **License:** CC BY-NC-ND 4.0 (specification), MIT (schemas/test vectors)
 
@@ -69,7 +69,6 @@ A governance system that only warns is a monitoring system. Deterministic govern
 - In regulated contexts, `ABSTAIN` is **fail-closed**: the action does not proceed unless and until an authorized party renders a definitive verdict
 - `ABSTAIN` is not a soft "maybe"; it is a hard gate that transfers decision authority while preventing unauthorized execution
 - Default behavior: **`ABSTAIN` MUST be treated as `DENY`** unless an authorized override occurs
-
 
 ## Quick Start
 
@@ -239,6 +238,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
 | 1.0.0 | 2025-09 | Initial release with core standard |
 | 1.0.1 | 2025-10 | Added adoption profiles, clarified gate format, expanded error codes |
 | 1.0.2 | 2025-11 | Added traceability matrix, glossary, concrete PCD examples |
+| 1.0.3 | 2026-02 | Added Enforcement Triad (ALLOW/DENY/ABSTAIN) with ABSTAIN operational contract |
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
 
