@@ -49,6 +49,28 @@ The Four Tests Standard (4TS) is a vendor-neutral technical specification for ve
 | **REPLAY** | Decision can be reproduced at boundary | State-Replay or Protocol-Replay modes |
 | **ESCALATION** | Mandatory custody transfer on denial/thresholds | Explicit routing with human-in-loop paths |
 
+## The Enforcement Triad
+
+A governance system that only warns is a monitoring system. Deterministic governance requires the ability to **stop actions**—not just flag them. Every decision boundary must resolve to one of three verdicts:
+
+| Verdict | Meaning | Operational Effect |
+| --- | --- | --- |
+| **ALLOW** | Action authorized under governing policy | Execution proceeds; effect-token issued |
+| **DENY** | Policy violation identified | Execution halted; no side-effects permitted |
+| **ABSTAIN** | Insufficient confidence to render a verdict | Authority explicitly returned; action blocked pending human resolution |
+
+### Why ABSTAIN matters
+
+`ABSTAIN` is the system's explicit acknowledgment of its own epistemic boundaries—a controlled handoff of authority rather than an uncertain guess. Systems that always answer are optimizing for completion. Systems that know when *not* to answer are optimizing for correctness.
+
+**Operational contract:**
+
+- `ABSTAIN` triggers mandatory escalation—routing to a human-in-the-loop queue, policy authority review, or other designated escalation path
+- In regulated contexts, `ABSTAIN` is **fail-closed**: the action does not proceed unless and until an authorized party renders a definitive verdict
+- `ABSTAIN` is not a soft "maybe"; it is a hard gate that transfers decision authority while preventing unauthorized execution
+- Default behavior: **`ABSTAIN` MUST be treated as `DENY`** unless an authorized override occurs
+
+
 ## Quick Start
 
 *Enable auditors to verify AI compliance mathematically rather than through sampling—deterministic verification at decision boundaries.*
