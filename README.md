@@ -225,7 +225,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
 
 ## Related Standards & Documents
 
-- **[Deterministic AI Governance - Executive Guide](https://ferzconsulting.com/downloads/deterministic-ai-governance-executive-guide.pdf)** - Business rationale and minimum governance bar
+- **[Deterministic AI Governance - Executive Guide](https://ferz.ai/downloads/deterministic-ai-governance-executive-guide.pdf)** - Business rationale and minimum governance bar
 - **JSON Schema draft 2020-12** - Schema specification standard
 - **RFC 3339 (ISO 8601)** - Timestamp format
 - **SHA-256 (FIPS 180-4)** - Cryptographic hashing
@@ -254,7 +254,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
 
 See [LICENSE.md](LICENSE.md) for complete terms.
 
-For commercial licensing inquiries: contact@ferzconsulting.com
+For commercial licensing inquiries: info@ferz.ai
 
 ---
 
