@@ -211,7 +211,7 @@ See [SPECIFICATION.md](SPECIFICATION.md) §7 for complete conformance requiremen
 
 - **Issues & Bugs:** [GitHub Issues](https://github.com/edmeyman/4ts-standard/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions)
-- **Email:** contact@ferzconsulting.com
+- **Email:** info@ferz.ai
 - **Website:** https://ferz.ai
 
 ## Contributing
