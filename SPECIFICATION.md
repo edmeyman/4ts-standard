@@ -580,7 +580,7 @@ When migrating between major versions:
 
 **Steward:** FERZ, Inc.  
 **Website:** https://ferz.ai  
-**Standards Email:** contact@ferzconsulting.com  
+**Standards Email:** info@ferz.ai  
 **GitHub:** https://github.com/edmeyman/4ts-standard
 
 Feedback and proposed changes should be submitted via GitHub issues or by email to the standards team. The 5TS standard is maintained through an open process with community input.
