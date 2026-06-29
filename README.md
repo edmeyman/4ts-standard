@@ -50,7 +50,7 @@ The Five Tests Standard (5TS) is a vendor-neutral technical specification for ve
 
 | Test | Requirement | Enforced Through |
 |------|-------------|------------------|
-| **STOP** | System can be halted before side-effects | Effect-token issuance gated by approval |
+| **STOP** | System can be halted before side-effects | Effect-token issuance gated by authorization verdict |
 | **OWNERSHIP** | Each consequential decision maps to named accountable authority | Policy and runtime attestations preserve accountability and key separation |
 | **REPLAY** | Decision can be reproduced at boundary | State-Replay or Protocol-Replay modes |
 | **ESCALATION** | Control transfers at defined policy boundaries | Explicit routing to authorized human authority when policy authority is exceeded |
@@ -66,7 +66,7 @@ A governance system that only warns is a monitoring system. Deterministic govern
 | --- | --- | --- |
 | **ALLOW** | Action authorized under governing policy | Execution proceeds; effect-token issued |
 | **DENY** | Policy violation identified | Execution halted; no side-effects permitted |
-| **ABSTAIN** | Insufficient confidence to render a verdict | Authority explicitly returned; action blocked pending human resolution |
+| **ABSTAIN** | Policy cannot resolve the action to ALLOW or DENY | Authority returned; action blocked pending authorized human resolution |
 
 ### Why ABSTAIN matters
 
@@ -74,7 +74,7 @@ A governance system that only warns is a monitoring system. Deterministic govern
 
 **Operational contract:**
 
-- `ABSTAIN` triggers mandatory escalation, routing to a human-in-the-loop queue, policy authority review, or other designated escalation path
+- `ABSTAIN` triggers mandatory escalation, routing to an authorized human review queue, policy authority review, or other designated escalation path
 - In regulated contexts, `ABSTAIN` is **fail-closed**: the action does not proceed unless and until an authorized party renders a definitive verdict
 - `ABSTAIN` is not a soft "maybe"; it is a hard gate that transfers decision authority while preventing unauthorized execution
 - Default behavior: `ABSTAIN` blocks execution unless and until an authorized override resolves the held action.
@@ -103,19 +103,13 @@ python tools/validator/quickstart_validate.py --json examples/model-deployment-s
 # Expected output: PASS
 ```
 
-### Create Your First PCD
+### Inspect an Example PCD
 
-```python
-from tools import pcd_builder
-
-pcd = pcd_builder.create_pcd(
-    boundary="deploy",
-    artifacts={"models": [{"id": "my-model-v1.0", "sha256": "..."}]},
-    replay_strategy="state"
-)
-
-print(pcd.to_json())
+```bash
+cat examples/model-deployment-state-replay.json
 ```
+
+Use this file as the starting point for your own PCD and validate it with the quickstart validator.
 
 ## Repository Structure
 
@@ -182,7 +176,7 @@ To claim conformance to the v1.0.2 conformance bundle (four of the five tests), 
 1. **Pass all test vectors:** 3 positive (PASS), 5 negative (expected failures with correct error codes)
 2. **Publish conformance claim:**
    ```
-   Tool@Version • PCD-1 • Bundle-1.0.2 • 8/8 • sha256:manifest_hash • logs_link
+   Tool@Version • PCD-1 • Bundle-1.0.2 • 8/8 • sha256:<bundle_hash> • logs_link
    ```
 3. **Implement core verification:** PCD schema validation, signature verification, replay logic, fail-closed enforcement
 
