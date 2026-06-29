@@ -790,4 +790,4 @@ A financial services RAG system generates an investment recommendation. This use
 © 2025 FERZ, Inc. This specification is licensed under CC BY-NC-ND 4.0.  
 Schemas and test vectors are licensed under MIT License.
 
-For commercial use inquiries, contact: contact@ferzconsulting.com
+For commercial use inquiries, contact: info@ferz.ai
