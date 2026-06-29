@@ -9,6 +9,7 @@
 
 [![SSRN](https://img.shields.io/badge/SSRN-5688982-blue)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
 [![ResearchGate](https://img.shields.io/badge/ResearchGate-Publication-00CCBB)](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21040295.svg)](https://doi.org/10.5281/zenodo.21040295)
 
 ## 📄 Academic Publications
 
@@ -29,6 +30,13 @@ Available on:
 ```
 Meyman, E. (2025). Verifiable AI Governance: The Four Tests Standard (4TS) 
 and Proof-Carrying Decisions. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982
+```
+
+**Cite the standard:**
+```
+Meyman, E. (2026). The Five Tests Standard (5TS), v1.2.0. Zenodo.
+Concept DOI (all versions): https://doi.org/10.5281/zenodo.21040295
+This version (v1.2.0): https://doi.org/10.5281/zenodo.21040296
 ```
 
 ## Overview
