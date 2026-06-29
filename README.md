@@ -2,33 +2,31 @@
 
 **Version:** 1.2.0  
 **Steward:** FERZ, Inc.  
-**License:** CC BY-NC-ND 4.0 (specification), MIT (schemas/test vectors)
+**License:** CC BY-NC-ND 4.0 (specification/docs), MIT (schemas/examples/tools/test vectors)
 
-> **The TCP/IP layer for AI governance**  
-> Ensure consequential AI decisions are stop-capable, owned, replayable, escalatable, and grounded in inputs of established origin, by design.
+> **A conformance layer for verifiable AI governance**  
+> Ensure consequential AI decisions are stop-capable, owned, replayable, escalation-capable, and grounded in inputs of established origin.
 
 [![SSRN](https://img.shields.io/badge/SSRN-5688982-blue)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
-[![ResearchGate](https://img.shields.io/badge/ResearchGate-Publication-00CCBB)](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21040295.svg)](https://doi.org/10.5281/zenodo.21040295)
 
 ## 📄 Academic Publications
 
 ### 📖 Foundational Paper
 
-**Verifiable AI Governance: The Four Tests Standard (4TS) and Proof-Carrying Decisions**  
-Edward Meyman | October 2025
+**Verifiable AI Governance: The Five Tests Standard (5TS) and Proof-Carrying Decisions**  
+Edward Meyman | October 2025; revised June 2026
 
 Available on:
-- [SSRN (Primary)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
-- [ResearchGate](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
+- [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
 
-*Establishes formal specification, theoretical foundations, and proof of necessary and sufficient conditions for verifiable AI governance.*
+*Establishes the formal specification, theoretical foundations, and conformance framing for verifiable AI governance through proof-carrying decisions.*
 
 ---
 
 **How to Cite:**
 ```
-Meyman, E. (2025). Verifiable AI Governance: The Four Tests Standard (4TS) 
+Meyman, E. (2025). Verifiable AI Governance: The Five Tests Standard (5TS) 
 and Proof-Carrying Decisions. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982
 ```
 
@@ -41,28 +39,28 @@ This version (v1.2.0): https://doi.org/10.5281/zenodo.21040296
 
 ## Overview
 
-The Five Tests Standard (5TS) is a vendor-neutral technical specification for verifiable AI governance. It enables organizations to prove that AI systems in regulated industries meet compliance requirements through:
+The Five Tests Standard (5TS) is a vendor-neutral technical specification for verifiable AI governance. It enables organizations to produce verifiable evidence that AI decisions in regulated industries are governed under a specific policy and authority, through:
 
 - **Proof-Carrying Decisions (PCDs):** Canonical JSON objects encoding all information needed to verify governance at decision boundaries
 - **Deterministic Verification:** Mathematical acceptance criteria that produce consistent results independent of who verifies
 - **Two Replay Modes:** State-Replay for byte-exact reproduction, Protocol-Replay for gate-based validation
-- **Fail-Closed Design:** Actions blocked by default unless approval can be cryptographically proven
+- **Fail-Closed Design:** Actions are blocked by default unless authorization can be established and verified
 
 ## The Five Tests
 
 | Test | Requirement | Enforced Through |
 |------|-------------|------------------|
 | **STOP** | System can be halted before side-effects | Effect-token issuance gated by approval |
-| **OWNERSHIP** | Identified authority signs policy before execution | Cryptographic signatures with timestamp ordering |
+| **OWNERSHIP** | Each consequential decision maps to named accountable authority | Policy and runtime attestations preserve accountability and key separation |
 | **REPLAY** | Decision can be reproduced at boundary | State-Replay or Protocol-Replay modes |
-| **ESCALATION** | Mandatory custody transfer on denial/thresholds | Explicit routing with human-in-loop paths |
+| **ESCALATION** | Control transfers at defined policy boundaries | Explicit routing to authorized human authority when policy authority is exceeded |
 | **PROVENANCE** *(normative; conformance deferred)* | Inputs grounding a verdict have an established origin | Origin, not truth; conformance vectors deferred to a later bundle |
 
 > **5TS v1.2.0** specifies five normative tests. The machine-checkable conformance bundle remains **v1.0.2** and tests four of them; Provenance conformance is not yet assertable and lands in a later bundle once input-origin binding is defined. Existing four-test conformance claims remain valid.
 
 ## The Enforcement Triad
 
-A governance system that only warns is a monitoring system. Deterministic governance requires the ability to **stop actions**—not just flag them. Every decision boundary must resolve to one of three verdicts:
+A governance system that only warns is a monitoring system. Deterministic governance requires the ability to **stop actions**, not merely flag them. Every decision boundary must resolve to one of three verdicts:
 
 | Verdict | Meaning | Operational Effect |
 | --- | --- | --- |
@@ -72,18 +70,18 @@ A governance system that only warns is a monitoring system. Deterministic govern
 
 ### Why ABSTAIN matters
 
-`ABSTAIN` is the system's explicit acknowledgment of its own epistemic boundaries—a controlled handoff of authority rather than an uncertain guess. Systems that always answer are optimizing for completion. Systems that know when *not* to answer are optimizing for correctness.
+`ABSTAIN` is the system's explicit acknowledgment of its own epistemic boundaries: a controlled handoff of authority rather than an uncertain guess. Systems that always answer are optimizing for completion. Systems that know when *not* to answer are optimizing for correctness.
 
 **Operational contract:**
 
-- `ABSTAIN` triggers mandatory escalation—routing to a human-in-the-loop queue, policy authority review, or other designated escalation path
+- `ABSTAIN` triggers mandatory escalation, routing to a human-in-the-loop queue, policy authority review, or other designated escalation path
 - In regulated contexts, `ABSTAIN` is **fail-closed**: the action does not proceed unless and until an authorized party renders a definitive verdict
 - `ABSTAIN` is not a soft "maybe"; it is a hard gate that transfers decision authority while preventing unauthorized execution
-- Default behavior: **`ABSTAIN` MUST be treated as `DENY`** unless an authorized override occurs
+- Default behavior: `ABSTAIN` blocks execution unless and until an authorized override resolves the held action.
 
 ## Quick Start
 
-*Enable auditors to verify AI compliance mathematically rather than through sampling—deterministic verification at decision boundaries.*
+*Enable auditors to verify governance decisions through deterministic evidence rather than sampling.*
 
 ### Installation
 
@@ -140,7 +138,7 @@ print(pcd.to_json())
 │   └── etl-pipeline-batch.json
 │
 ├── test-vectors/                # Conformance test suite
-│   ├── positive/               # Must PASS (8 vectors)
+│   ├── positive/               # Must PASS (3 vectors)
 │   │   ├── PCD-A1_state_auto_approve.json
 │   │   ├── PCD-A2_protocol_with_gates.json
 │   │   └── PCD-A3_fail_closed_denial.json
@@ -256,12 +254,12 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
 
 ## License
 
-- **Specification Text:** [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+- **Specification Text and Documentation:** [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
   - Attribution required
   - Non-commercial use
   - No derivatives
   
-- **Schemas & Test Vectors:** [MIT License](https://opensource.org/licenses/MIT)
+- **Schemas, Examples, Tools, and Test Vectors:** [MIT License](https://opensource.org/licenses/MIT)
   - Permissive use for implementation
 
 See [LICENSE.md](LICENSE.md) for complete terms.
@@ -270,4 +268,4 @@ For commercial licensing inquiries: info@ferz.ai
 
 ---
 
-**© 2026 FERZ Inc.** | Vendor-neutral open standard for verifiable AI governance
+**© 2026 FERZ, Inc.** | Vendor-neutral open standard for verifiable AI governance
