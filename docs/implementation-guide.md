@@ -1,4 +1,4 @@
-# 4TS Implementation Guide
+# 5TS Implementation Guide
 
 **Version:** 1.0.2  
 **Audience:** AI/ML engineers, platform architects, compliance engineers  
@@ -27,11 +27,11 @@
 
 ## Introduction
 
-This guide provides detailed implementation patterns for building 4TS-conformant systems. It covers the complete lifecycle from PCD generation through verification, with concrete examples for common deployment scenarios.
+This guide provides detailed implementation patterns for building conformant systems. It covers the complete lifecycle from PCD generation through verification, with concrete examples for common deployment scenarios.
 
 ### Design Philosophy
 
-4TS implementations follow three core principles:
+5TS implementations follow three core principles:
 
 1. **Fail-closed by design:** Systems deny by default; approval must be proven
 2. **Deterministic verification:** Same inputs always produce same verification result
@@ -39,7 +39,7 @@ This guide provides detailed implementation patterns for building 4TS-conformant
 
 ### Architecture Overview
 
-A minimal 4TS implementation consists of:
+A minimal 5TS implementation consists of:
 
 - **PCD Emitter:** Generates proof-carrying decisions at decision boundaries
 - **Verifier:** Validates PCDs against conformance requirements
@@ -53,7 +53,7 @@ A minimal 4TS implementation consists of:
 
 ### Quickstart: Minimal Implementation
 
-The fastest path to 4TS conformance:
+The fastest path to conformance with the v1.0.2 bundle:
 
 ```python
 # 1. Install dependencies
@@ -409,7 +409,7 @@ def emit_deployment_pcd(model, policy, eval_results):
 
 ```python
 class PCDBuilder:
-    """Builds 4TS-conformant PCDs with automatic validation."""
+    """Builds conformant PCDs with automatic validation."""
     
     def __init__(self, artifact_store, key_manager, schema_validator):
         self.artifact_store = artifact_store
@@ -575,7 +575,7 @@ class PCDBuilder:
 
 ```python
 class PCDVerifier:
-    """Verifies 4TS PCD conformance."""
+    """Verifies 5TS PCD conformance."""
     
     def __init__(self, schema_validator, artifact_store, key_manager):
         self.schema_validator = schema_validator
@@ -1515,7 +1515,7 @@ class DebugPCDVerifier(PCDVerifier):
 
 ## Additional Resources
 
-- **4TS Technical Specification:** [SPECIFICATION.md](../SPECIFICATION.md)
+- **5TS Technical Specification:** [SPECIFICATION.md](../SPECIFICATION.md)
 - **Quick Start Guide:** [quickstart.md](quickstart.md)
 - **FAQ:** [faq.md](faq.md)
 - **Error Catalog:** [error-catalog.md](error-catalog.md)
@@ -1532,4 +1532,4 @@ class DebugPCDVerifier(PCDVerifier):
 
 ---
 
-© 2025 FERZ LLC. This implementation guide is licensed under CC BY-NC-ND 4.0.
+© 2025 FERZ, Inc. This implementation guide is licensed under CC BY-NC-ND 4.0.

@@ -1,6 +1,6 @@
-# Four Tests Standard (4TS) - License
+# Five Tests Standard (5TS) - License
 
-The 4TS standard uses dual licensing to balance open access with appropriate protections:
+The 5TS standard uses dual licensing to balance open access with appropriate protections:
 
 ## 1. Specification Text License
 
@@ -15,7 +15,7 @@ The 4TS standard uses dual licensing to balance open access with appropriate pro
 
 **Summary:**
 - ✅ **Share** — Copy and redistribute the specification in any medium or format
-- ✅ **Attribution** — Credit must be given to FERZ LLC as steward
+- ✅ **Attribution** — Credit must be given to FERZ, Inc. as steward
 - ❌ **NonCommercial** — Not for commercial purposes without permission
 - ❌ **NoDerivatives** — No modified versions may be distributed
 
@@ -26,19 +26,19 @@ The 4TS standard uses dual licensing to balance open access with appropriate pro
 When referencing this specification, use:
 
 ```
-Four Tests Standard (4TS) v1.0.2
-© 2025 FERZ LLC
-https://github.com/ferz-ai/4ts-standard
+Five Tests Standard (5TS) v1.2.0
+© 2025 FERZ, Inc.
+https://github.com/edmeyman/4ts-standard
 Licensed under CC BY-NC-ND 4.0
 ```
 
 ### Commercial Use
 
 For commercial licensing inquiries including:
-- Using 4TS branding in commercial products
+- Using 5TS branding in commercial products
 - Creating derivative specifications
-- Offering 4TS conformance as a paid service
-- Training/consulting services based on 4TS
+- Offering conformance to the v1.0.2 conformance bundle as a paid service
+- Training/consulting services based on 5TS
 
 Contact: contact@ferzconsulting.com
 
@@ -55,12 +55,12 @@ Contact: contact@ferzconsulting.com
 - All code in `tools/`
 - JSON schemas and machine-readable specifications
 
-**Purpose:** Enable free implementation and integration of 4TS into any codebase
+**Purpose:** Enable free implementation and integration of 5TS into any codebase
 
 ```
 MIT License
 
-Copyright (c) 2025 FERZ LLC
+Copyright (c) 2025 FERZ, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -99,15 +99,15 @@ The specification text is protected to ensure:
 The schemas and tools are permissively licensed to enable:
 
 1. **Free Implementation:** Any organization can build conformant systems
-2. **Commercial Use:** Vendors can integrate 4TS without licensing fees
+2. **Commercial Use:** Vendors can integrate 5TS without licensing fees
 3. **Modification:** Implementers can adapt reference code to their needs
-4. **Broad Adoption:** No barriers to using 4TS in production systems
+4. **Broad Adoption:** No barriers to using 5TS in production systems
 
 ---
 
 ## Trademark Notice
 
-"4TS", "Four Tests Standard", and associated logos are trademarks of FERZ LLC.
+"5TS", "Five Tests Standard", "4TS", and "Four Tests Standard", and associated logos are trademarks of FERZ, Inc.
 
 **Permitted Use:**
 - Referencing the standard in documentation
@@ -116,8 +116,8 @@ The schemas and tools are permissively licensed to enable:
 
 **Requires Permission:**
 - Using trademarks in product names
-- Implying endorsement by FERZ LLC
-- Creating derivative standards using 4TS marks
+- Implying endorsement by FERZ, Inc.
+- Creating derivative standards using 5TS marks
 
 For trademark licensing: contact@ferzconsulting.com
 
@@ -125,7 +125,7 @@ For trademark licensing: contact@ferzconsulting.com
 
 ## Conformance Claims
 
-Organizations may publicly claim 4TS conformance without permission if they:
+Organizations may publicly claim conformance to the v1.0.2 conformance bundle without permission if they:
 
 1. Pass all conformance tests (8/8 vectors)
 2. Publish conformance claim with format:
@@ -135,13 +135,13 @@ Organizations may publicly claim 4TS conformance without permission if they:
 3. Make verification logs publicly available
 4. Do not imply endorsement beyond technical conformance
 
-False conformance claims may result in revocation of permission to use 4TS trademarks.
+False conformance claims may result in revocation of permission to use 5TS trademarks.
 
 ---
 
 ## Patents
 
-FERZ LLC commits to **royalty-free licensing** of any patents necessary to implement this standard, provided implementers also commit to royalty-free licensing of their essential patents.
+FERZ, Inc. commits to **royalty-free licensing** of any patents necessary to implement this standard, provided implementers also commit to royalty-free licensing of their essential patents.
 
 If you believe implementation of this standard infringes your patents, contact: contact@ferzconsulting.com
 

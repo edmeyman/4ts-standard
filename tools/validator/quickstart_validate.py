@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-4TS Quickstart Validator
-Validates PCDs against 4TS v1.0.2 requirements
+5TS Quickstart Validator
+Validates PCDs against the v1.0.2 conformance bundle
 
 Usage:
     python quickstart_validate.py --json path/to/pcd.json
@@ -24,7 +24,7 @@ except ImportError:
 
 
 class PCDValidator:
-    """Reference validator for 4TS PCDs"""
+    """Reference validator for 5TS PCDs"""
     
     def __init__(self, schema_path: str = None):
         """Initialize validator with PCD schema"""
@@ -39,7 +39,7 @@ class PCDValidator:
     
     def validate_pcd(self, pcd: Dict[str, Any]) -> Tuple[bool, List[str]]:
         """
-        Validate PCD against 4TS requirements
+        Validate PCD against the v1.0.2 conformance bundle
         
         Returns: (is_valid, list_of_errors)
         """
@@ -214,7 +214,7 @@ def run_all_tests():
         return False
     
     print(f"\n{'='*60}")
-    print(f"Running 4TS Conformance Tests")
+    print(f"Running 5TS Conformance Tests")
     print(f"Found {len(test_files)} test files")
     print('='*60)
     
@@ -228,20 +228,20 @@ def run_all_tests():
     print("Test Summary")
     print('='*60)
     
-    passed = sum(1 for _, p in results if p)
+    passed_count = sum(1 for _, ok in results if ok)
     total = len(results)
     
-    for name, passed in results:
-        status = "✅ PASS" if passed else "❌ FAIL"
+    for name, ok in results:
+        status = "✅ PASS" if ok else "❌ FAIL"
         print(f"{status}: {name}")
     
-    print(f"\nResult: {passed}/{total} tests passed")
+    print(f"\nResult: {passed_count}/{total} tests passed")
     
-    if passed == total:
-        print("\n🎉 All tests passed! This implementation is 4TS conformant.")
+    if passed_count == total:
+        print("\n🎉 All tests passed! This implementation conforms to the v1.0.2 conformance bundle.")
         return True
     else:
-        print(f"\n⚠️  {total - passed} test(s) failed. Review errors above.")
+        print(f"\n⚠️  {total - passed_count} test(s) failed. Review errors above.")
         return False
 
 
@@ -249,7 +249,7 @@ def main():
     """Main entry point"""
     import argparse
     
-    parser = argparse.ArgumentParser(description="4TS PCD Validator v1.0.2")
+    parser = argparse.ArgumentParser(description="5TS PCD Validator (v1.0.2 bundle)")
     parser.add_argument("--json", help="Path to PCD JSON file to validate")
     parser.add_argument("--all", action="store_true", help="Run all test vectors")
     

@@ -1,9 +1,9 @@
-# 4TS Technical Specification
+# 5TS Technical Specification
 
-**Version:** 1.0.2  
-**Steward:** FERZ LLC  
+**Version:** 1.2.0  
+**Steward:** FERZ, Inc.  
 **License:** CC BY-NC-ND 4.0 (Spec Text), MIT (Schemas/Vectors)  
-**Published:** November 2025  
+**Published:** November 2025 (4TS) / Updated June 2026 (5TS v1.2.0)  
 **Document Type:** Technical Standard
 
 ---
@@ -29,7 +29,7 @@
 
 ## Glossary
 
-**4TS:** Four Tests Standard - vendor-neutral specification for verifiable AI governance.
+**5TS:** Five Tests Standard - vendor-neutral specification for verifiable AI governance. Renamed from 4TS (Four Tests Standard) in v1.2.0, which added Provenance as a fifth normative test.
 
 **Attestation:** Cryptographic proof of authority, timing, and integrity using digital signatures.
 
@@ -49,23 +49,25 @@
 
 **Merkle Tree:** Hierarchical hash structure enabling efficient verification of large artifacts through chunk-level hashing.
 
-**PCD (Proof-Carrying Decision):** Canonical JSON object encoding all information necessary to verify the Four Tests at a decision boundary.
+**PCD (Proof-Carrying Decision):** Canonical JSON object encoding all information necessary to verify the standard's conformance tests at a decision boundary.
 
 **Protocol-Replay:** Verification mode using deterministic gate re-evaluation on frozen datasets, suitable for stochastic workflows.
+
+**Provenance (Normative; conformance deferred):** Fifth test, added in v1.2.0. The inputs a verdict rests on have an established origin. Provenance is origin, not truth. Its conformance vectors are deferred until input-origin binding is defined. See §1.4 and §7.4.
 
 **Replay Mode:** Method for deterministically verifying governance decisions: State-Replay (byte-exact) or Protocol-Replay (gate-based).
 
 **State-Replay:** Verification mode requiring byte-exact artifact reproduction and identical PCD hashes.
 
-**Verifier:** System that validates PCD conformance to 4TS requirements through deterministic checks.
+**Verifier:** System that validates PCD conformance to 5TS requirements through deterministic checks.
 
 ---
 
 ## §0 Introduction and Metadata
 
-**System Identifier:** 4TS-Standard (Four Tests Standard)  
-**Version:** v1.0.2 (specification with traceability matrix, glossary, and examples)  
-**Steward:** FERZ LLC (vendor-neutral publication)  
+**System Identifier:** 5TS-Standard (Five Tests Standard; formerly 4TS)  
+**Version:** v1.2.0 (adds Provenance as a fifth normative test; conformance bundle unchanged at v1.0.2)  
+**Steward:** FERZ, Inc. (vendor-neutral publication)  
 **License:** CC BY-NC-ND 4.0 (specification text), MIT (schemas and test vectors)  
 **Year:** 2025  
 **Authors:** Edward Meyman (FERZ), FERZ Deterministic Governance Team  
@@ -81,15 +83,15 @@
 
 ### 0.2 Compatibility Matrix
 
-The 4TS standard follows semantic versioning (SemVer). PCD major version 1.x maintains backward compatibility within minor version updates. Verifiers must ignore unknown fields under the must-ignore policy. Breaking changes occur only on major version increments.
+The 5TS standard follows semantic versioning (SemVer). PCD major version 1.x maintains backward compatibility within minor version updates. Verifiers must ignore unknown fields under the must-ignore policy. Breaking changes occur only on major version increments.
 
 ---
 
 ## §1 Purpose and Scope
 
-The Four Tests Standard (4TS) ensures consequential AI decisions are stop-capable, owned, replayable, and escalatable—by design—via a proof-carrying decision object and deterministic acceptance at the decision boundary.
+The Five Tests Standard (5TS) ensures consequential AI decisions are stop-capable, owned, replayable, escalatable, and grounded in inputs of established origin, by design, via a proof-carrying decision object and deterministic acceptance at the decision boundary.
 
-### 1.1 The Four Tests
+### 1.1 The Five Tests
 
 **STOP:** System can be halted before side-effects. Effect-token issuance is gated by approval decision.
 
@@ -99,9 +101,11 @@ The Four Tests Standard (4TS) ensures consequential AI decisions are stop-capabl
 
 **ESCALATION:** Mandatory custody transfer routes on denial or threshold crossings. Human-in-loop routes explicit.
 
+**PROVENANCE (Normative; conformance deferred):** The inputs a verdict rests on have an established origin. A control must establish the provenance of the inputs grounding a verdict and must not ground a verdict on inputs whose origin cannot be established. Provenance is origin, not truth: it does not by itself establish that input content is true, complete, current, or substantively sufficient. Added in v1.2.0 as a normative requirement; its conformance vectors are deferred until input-origin binding exists in the PCD. See §1.4 and §7.4.
+
 ### 1.2 Traceability Matrix
 
-The following matrix maps each of the Four Tests to specific PCD fields, verification logic, and error codes, enabling auditors to systematically verify conformance.
+The following matrix maps each test to specific PCD fields, verification logic, and error codes, enabling auditors to systematically verify conformance. Provenance is listed with its conformance status reserved, since its input-origin binding is not yet defined (see §1.4 and §7.4).
 
 | Test | PCD Fields | Verification Logic | Error Codes |
 |------|------------|-------------------|-------------|
@@ -109,6 +113,7 @@ The following matrix maps each of the Four Tests to specific PCD fields, verific
 | OWNERSHIP | `attestations.timestamps`<br>`attestations.key_roles`<br>`attestations.signatures` | `policy_signed ≤ exec_start ≤ exec_end`<br>Key role separation enforced<br>Signature validity verified | `E_PREEXEC_SIGNING`<br>`E_KEY_SEPARATION`<br>`E_SIG_INVALID`<br>`E_SIG_MISSING` |
 | REPLAY | `replay.strategy`<br>`artifacts` (SHA-256)<br>`controls.gates`<br>`lineage steps` | State: byte-equal artifacts + hash match<br>Protocol: re-evaluate gates on frozen data<br>Decision outcome must match | `E_HASH_MISMATCH`<br>`E_REPLAY_NONDETERMINISTIC`<br>`E_STEP_REPRO_FAIL`<br>`E_PROTOCOL_GATE_FAIL` |
 | ESCALATION | `decision.routed`<br>`decision.outcome`<br>`lineage.policy_refs`<br>`custody routes` | Mandatory custody on denial<br>Escalation routes explicit<br>Human-in-loop paths encoded | `E_MISSING_CUSTODY`<br>`E_UNTYPED_LINEAGE`<br>`E_POLICY_REF_MISSING` |
+| PROVENANCE | *(reserved)* | *Normative requirement (§1.4). Input-origin binding not yet defined; no conformance vectors in v1.2.0 (§7.4).* | *(deferred)* |
 
 ### 1.3 Core Components
 
@@ -120,9 +125,25 @@ The following matrix maps each of the Four Tests to specific PCD fields, verific
 
 ---
 
+### 1.4 Provenance: Normative Status and Deferred Conformance
+
+Provenance is normative in 5TS v1.2.0. Its conformance machinery is deferred.
+
+**Requirement.** The inputs a verdict rests on have an established origin. A control must establish the provenance of the inputs grounding a verdict and must not ground a verdict on inputs whose origin cannot be established.
+
+**Established origin.** For purposes of this standard, an input has an established origin only when the control can identify the source or source class from which the input was obtained, bind that origin claim to the input used for the verdict, and preserve that binding in a form capable of later verification once the relevant conformance machinery exists. Provenance does not require the standard to specify how origin is established.
+
+**Origin, not truth.** Provenance is an input-side authorization requirement. It does not, by itself, establish that the input content is true, complete, current, or substantively sufficient under a domain policy. Those questions belong to the applicable authorization constraints. Provenance determines whether the control may rely on the input at all.
+
+**Proof-object extension point (reserved).** When Provenance becomes testable, the Proof-Carrying Decision will need to bind the origin of the inputs a decision used, not only their bytes, so that a verifier can confirm that origin was established. The encoding of input-origin binding is reserved for a later conformance-bundle release. This version states the Provenance requirement but does not define the PCD fields, validation vectors, or verifier behavior required to test it. The standard names the requirement. It does not specify the mechanism.
+
+Conformance status is in §7.4.
+
+---
+
 ## §2 PCD Schema Specification
 
-The Proof-Carrying Decision (PCD) is a canonical JSON object that encodes all information necessary to verify the Four Tests at a decision boundary. The PCD schema is formally defined using JSON Schema draft 2020-12.
+The Proof-Carrying Decision (PCD) is a canonical JSON object that encodes all information necessary to verify the standard's conformance tests at a decision boundary. The PCD schema is formally defined using JSON Schema draft 2020-12.
 
 ### 2.1 Mandatory Fields
 
@@ -178,7 +199,7 @@ All artifacts must include SHA-256 hashes for byte-level custody verification. L
 
 ## §3 Decision Boundaries
 
-Decision boundaries define temporal and hierarchical scoping for governance decisions. The 4TS standard defines three boundary types with explicit parent-child relationships and effective time windows.
+Decision boundaries define temporal and hierarchical scoping for governance decisions. The 5TS standard defines three boundary types with explicit parent-child relationships and effective time windows.
 
 ### 3.1 Boundary Types
 
@@ -200,7 +221,7 @@ The hierarchy (deploy > policy > inference) enables layered governance. A deploy
 
 ## §4 Replay Modes
 
-The 4TS standard defines two replay modes that enable deterministic verification of governance decisions: State-Replay for byte-exact artifact reproduction, and Protocol-Replay for gate-based acceptance verification. Systems must declare their replay strategy in the PCD.
+The 5TS standard defines two replay modes that enable deterministic verification of governance decisions: State-Replay for byte-exact artifact reproduction, and Protocol-Replay for gate-based acceptance verification. Systems must declare their replay strategy in the PCD.
 
 ### 4.1 State-Replay Mode
 
@@ -242,7 +263,7 @@ The 4TS standard defines two replay modes that enable deterministic verification
 
 ## §5 Attestation and Verification
 
-Attestations provide cryptographic proof of authority, timing, and integrity. The 4TS standard requires key role separation between policy signing and runtime execution to prevent post-hoc authorization.
+Attestations provide cryptographic proof of authority, timing, and integrity. The 5TS standard requires key role separation between policy signing and runtime execution to prevent post-hoc authorization.
 
 ### 5.1 Attestation Structure
 
@@ -279,7 +300,7 @@ Attestations provide cryptographic proof of authority, timing, and integrity. Th
 
 ### 5.3 Timestamp Ordering
 
-The 4TS standard enforces strict timestamp ordering to prevent post-hoc policy signing. Required ordering:
+The 5TS standard enforces strict timestamp ordering to prevent post-hoc policy signing. Required ordering:
 
 **policy_signed ≤ exec_start ≤ exec_end**
 
@@ -352,7 +373,7 @@ This enables auditors to trace which policies influenced each decision step and 
 
 ## §7 Conformance Requirements
 
-Conformance to the 4TS standard requires passing all test vectors in the official conformance bundle and satisfying the requirements for PCD emission and verification. This section defines the normative requirements for 4TS-conformant systems.
+Conformance to the 5TS standard is verified against the official conformance bundle, which remains at v1.0.2 and tests four of the five tests. This section defines the normative requirements for conformant systems. Provenance is normative but not yet conformance-testable; its status is in §7.4.
 
 ### 7.1 Conformance Bundle v1.0.2
 
@@ -384,13 +405,29 @@ A conformant system must publish a conformance claim with the following structur
 
 Example: `ACME-Verifier@2.1.0 • PCD-1 • Bundle-1.0.2 • 8/8 • sha256:abc123... • https://acme.com/4ts/logs`
 
-Conformance claims enable users to verify that a system implements 4TS correctly and provides the required governance guarantees.
+Conformance claims enable users to verify that a system implements 5TS correctly and provides the required governance guarantees.
+
+---
+
+### 7.4 Provenance Conformance Status
+
+Provenance is normative in 5TS v1.2.0, but Provenance conformance is not yet assertable. The current machine-checkable conformance bundle remains the four-test bundle at v1.0.2. Implementations may continue to claim conformance to the v1.0.2 conformance bundle. They may not claim Provenance conformance, or full five-test conformance, until a later conformance-bundle release defines input-origin binding and associated validation vectors.
+
+Three labels keep this unambiguous:
+
+- **5TS v1.2.0 specification:** five normative tests.
+- **Conformance bundle v1.0.2:** four testable vectors.
+- **Provenance conformance:** unavailable until input-origin binding lands.
+
+The reason Provenance is not yet testable is concrete. The PCD binds input bytes but does not yet bind the origin of those inputs. Until input-origin binding exists in the proof object, a verifier cannot test Provenance deterministically, and a requirement that cannot be checked must not be presented as a checkable conformance gate.
+
+**Versioning.** 5TS v1.2.0 is an additive specification release. It adds Provenance as a normative requirement but does not change the v1.0.2 conformance bundle. Existing four-test bundle conformance claims remain valid. No implementation is required to update schemas, validators, or conformance vectors solely because v1.2.0 has been published.
 
 ---
 
 ## §8 Implementation Guidance
 
-This section provides practical guidance for implementing 4TS-conformant systems across common AI/ML deployment patterns. Implementation profiles define how to apply 4TS principles to specific use cases.
+This section provides practical guidance for implementing conformant systems across common AI/ML deployment patterns. Implementation profiles define how to apply 5TS principles to specific use cases.
 
 ### 8.1 Implementation Profiles
 
@@ -416,7 +453,7 @@ When using Protocol-Replay, gates must be:
 
 ### 8.3 Fail-Closed Design Pattern
 
-4TS systems must fail closed by design:
+5TS systems must fail closed by design:
 
 1. **Pre-execution validation:** Verify policy signatures before exec_start
 2. **No effects on denial:** Effect-tokens MUST NOT exist on denial paths
@@ -429,7 +466,7 @@ This pattern ensures that failures in governance infrastructure cannot lead to u
 
 ## §9 Error Handling and Recovery
 
-The 4TS standard defines explicit error codes for all conformance violations. Systems must detect, report, and handle these errors deterministically to maintain governance integrity.
+The 5TS standard defines explicit error codes for all conformance violations. Systems must detect, report, and handle these errors deterministically to maintain governance integrity.
 
 ### 9.1 Error Codes
 
@@ -463,13 +500,13 @@ When errors occur, systems should:
 
 **Mixed Canonicalization:** If different services use different canonicalization implementations, hash mismatches may occur. Use a single canonical implementation across all components.
 
-**Streaming Effects:** Some systems may begin side effects before full approval (streaming responses). This violates 4TS fail-closed requirements. Buffer outputs until approval is confirmed.
+**Streaming Effects:** Some systems may begin side effects before full approval (streaming responses). This violates 5TS fail-closed requirements. Buffer outputs until approval is confirmed.
 
 ---
 
 ## §10 Extensions and Interoperability
 
-The 4TS standard supports vendor-specific extensions while maintaining core interoperability through the must-ignore policy. Extensions enable innovation without fragmenting the standard.
+The 5TS standard supports vendor-specific extensions while maintaining core interoperability through the must-ignore policy. Extensions enable innovation without fragmenting the standard.
 
 ### 10.1 Extension Mechanism
 
@@ -477,7 +514,7 @@ Extensions use namespaced fields: `extensions.vendor.feature`
 
 **Reserved namespaces (must not be used by vendors):**
 - `extensions.std.*` - Reserved for future standardization
-- `extensions.spec.*` - Reserved for 4TS specification team
+- `extensions.spec.*` - Reserved for 5TS specification team
 - `extensions.conformance.*` - Reserved for conformance testing
 - `extensions.test.*` - Reserved for test vectors
 
@@ -491,17 +528,17 @@ Verifiers and consumers MUST ignore unknown fields, including:
 - New optional fields in future minor versions
 - Vendor-specific metadata
 
-This policy ensures forward compatibility: Systems implementing 4TS v1.0 can process PCDs from v1.1, v1.2, etc., even if they don't understand new optional features. Breaking changes occur only on major version increments (e.g., 2.0).
+This policy ensures forward compatibility: Systems implementing 5TS v1.0 can process PCDs from v1.1, v1.2, etc., even if they don't understand new optional features. Breaking changes occur only on major version increments (e.g., 2.0).
 
 ### 10.3 Interoperability Scenarios
 
-**Cross-Vendor Verification:** Vendor A emits PCD, Vendor B verifies. Both must implement core 4TS; extensions are optional and ignored by non-supporting parties.
+**Cross-Vendor Verification:** Vendor A emits PCD, Vendor B verifies. Both must implement core 5TS; extensions are optional and ignored by non-supporting parties.
 
-**Regulatory Integration:** 4TS PCDs can be submitted to regulators regardless of implementation vendor. Standard format enables consistent audit processes.
+**Regulatory Integration:** 5TS PCDs can be submitted to regulators regardless of implementation vendor. Standard format enables consistent audit processes.
 
 **Multi-System Workflows:** PCDs from different systems can be chained (parent decision → child decision) across organizational boundaries. Standard lineage format enables end-to-end audit trails.
 
-**Tool Ecosystem:** Third-party tools (analyzers, visualizers, compliance dashboards) can process any 4TS-conformant PCD without vendor-specific integration.
+**Tool Ecosystem:** Third-party tools (analyzers, visualizers, compliance dashboards) can process any conformant PCD without vendor-specific integration.
 
 ### 10.4 Migration Paths
 
@@ -526,8 +563,8 @@ When migrating between major versions:
 
 ### 11.2 Related Documents
 
-- **Deterministic AI Governance - Executive Guide:** Business rationale and minimum governance bar. 4TS is the technical standard that operationalizes these principles.
-- **FERZ Implementation Guide:** Detailed implementation guidance for FERZ systems (LASO(f), DAGS-CVCA, DELIA) that implement 4TS.
+- **Deterministic AI Governance - Executive Guide:** Business rationale and minimum governance bar. 5TS is the technical standard that operationalizes these principles.
+- **FERZ Implementation Guide:** Detailed implementation guidance for FERZ systems (LASO(f), DAGS-CVCA, DELIA) that implement 5TS.
 
 ### 11.3 Version History
 
@@ -536,15 +573,17 @@ When migrating between major versions:
 | 1.0.0 | 2025-09 | Initial release with core standard |
 | 1.0.1 | 2025-10 | Added adoption profiles, clarified gate format, expanded error codes |
 | 1.0.2 | 2025-11 | Added traceability matrix, glossary, and concrete PCD examples (Appendix A) |
+| 1.0.3 | 2026-02 | Added the Enforcement Triad: normative verdicts ALLOW, DENY, ABSTAIN |
+| 1.2.0 | 2026-06 | Renamed 4TS to 5TS. Added Provenance as a fifth normative test (conformance deferred). Conformance bundle unchanged at v1.0.2 |
 
 ### 11.4 Contact and Feedback
 
-**Steward:** FERZ LLC  
+**Steward:** FERZ, Inc.  
 **Website:** https://ferz.ai  
 **Standards Email:** contact@ferzconsulting.com  
 **GitHub:** https://github.com/edmeyman/4ts-standard
 
-Feedback and proposed changes should be submitted via GitHub issues or by email to the standards team. The 4TS standard is maintained through an open process with community input.
+Feedback and proposed changes should be submitted via GitHub issues or by email to the standards team. The 5TS standard is maintained through an open process with community input.
 
 ---
 
@@ -748,7 +787,7 @@ A financial services RAG system generates an investment recommendation. This use
 
 ---
 
-© 2025 FERZ LLC. This specification is licensed under CC BY-NC-ND 4.0.  
+© 2025 FERZ, Inc. This specification is licensed under CC BY-NC-ND 4.0.  
 Schemas and test vectors are licensed under MIT License.
 
 For commercial use inquiries, contact: contact@ferzconsulting.com

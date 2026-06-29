@@ -1,16 +1,17 @@
-# 4TS Frequently Asked Questions (FAQ)
+# 5TS Frequently Asked Questions (FAQ)
 
 ## General Questions
 
-### What is 4TS?
+### What is 5TS?
 
-The Four Tests Standard (4TS) is a vendor-neutral technical specification that enables organizations to prove AI systems meet compliance requirements through:
+The Five Tests Standard (5TS) is a vendor-neutral technical specification that enables organizations to prove AI systems meet compliance requirements through:
 - **Stop-capable** decisions with fail-closed design
 - **Owned** decisions with cryptographic signatures
 - **Replayable** decisions through state or protocol verification
 - **Escalatable** decisions with mandatory custody routes
+- **Grounded in inputs of established origin** (Provenance; normative, conformance vectors deferred)
 
-### Who needs 4TS?
+### Who needs 5TS?
 
 Organizations deploying AI in regulated industries:
 - Healthcare (FDA 510(k), EU MDR)
@@ -18,17 +19,17 @@ Organizations deploying AI in regulated industries:
 - Government/defense (NIST AI RMF, DoD principles)
 - Any high-stakes environment requiring audit trails
 
-### Is 4TS free to use?
+### Is 5TS free to use?
 
 **Yes, with dual licensing:**
 - **Schemas/tools:** MIT License (completely free for any use)
 - **Specification text:** CC BY-NC-ND 4.0 (free for non-commercial use)
 
-Commercial entities can freely implement 4TS using the MIT-licensed schemas and tools. See [LICENSE.md](../LICENSE.md) for details.
+Commercial entities can freely implement 5TS using the MIT-licensed schemas and tools. See [LICENSE.md](../LICENSE.md) for details.
 
-### How is 4TS different from other AI governance frameworks?
+### How is 5TS different from other AI governance frameworks?
 
-| Feature | 4TS | Other Frameworks |
+| Feature | 5TS | Other Frameworks |
 |---------|-----|------------------|
 | **Verification** | Mathematical/deterministic | Policy documents |
 | **Proof** | Cryptographically signed PCDs | Attestation letters |
@@ -52,12 +53,12 @@ Commercial entities can freely implement 4TS using the MIT-licensed schemas and 
 - Higher verification cost (must re-run gates)
 - Best for: RAG systems, agentic workflows, LLM tool chains
 
-### Can I use 4TS with existing MLOps tools?
+### Can I use 5TS with existing MLOps tools?
 
-Yes! 4TS is designed to integrate with existing workflows:
+Yes! 5TS is designed to integrate with existing workflows:
 
 ```python
-# Example: Wrap MLflow deployment with 4TS
+# Example: Wrap MLflow deployment with 5TS
 def deploy_with_4ts(model_uri, policy_id):
     # Generate PCD before deployment
     pcd = create_deployment_pcd(
@@ -66,7 +67,7 @@ def deploy_with_4ts(model_uri, policy_id):
         artifacts=get_model_artifacts(model_uri)
     )
     
-    # Verify PCD passes Four Tests
+    # Verify PCD passes the conformance tests
     if validator.validate(pcd):
         # Issue effect-token (approval)
         token = issue_effect_token(pcd)
@@ -163,14 +164,14 @@ pcd_signature = sign(canonical_pcd, runtime_private_key)
 
 ### Do I need to modify my existing models?
 
-No! 4TS operates at the deployment/governance layer:
+No! 5TS operates at the deployment/governance layer:
 - Models remain unchanged
 - Add PCD emission wrapper around deployment
 - Integrate verification into approval workflow
 
 ### What about real-time systems?
 
-4TS supports millisecond-scale inference decisions:
+5TS supports millisecond-scale inference decisions:
 
 **Optimization strategies:**
 - Pre-compute policy signatures (valid for effective window)
@@ -212,9 +213,9 @@ Create a new deploy-boundary PCD when model changes:
 
 ### What does conformance mean?
 
-A system is 4TS-conformant if it:
+A system conforms to the v1.0.2 conformance bundle (four of the five tests; Provenance conformance is not yet assertable) if it:
 1. Emits valid PCDs according to the schema
-2. Enforces all Four Tests
+2. Enforces all conformance tests
 3. Passes all 8 conformance test vectors (3 positive, 5 negative)
 4. Publishes conformance claim with verification logs
 
@@ -232,9 +233,9 @@ A system is 4TS-conformant if it:
 
 3. **Make verification logs public**
 
-4. **Update documentation** to reference 4TS conformance
+4. **Update documentation** to reference v1.0.2 conformance bundle
 
-### Can I use 4TS logos/trademarks?
+### Can I use 5TS logos/trademarks?
 
 **Permitted without permission:**
 - Referencing the standard in documentation
@@ -242,8 +243,8 @@ A system is 4TS-conformant if it:
 - Academic citations
 
 **Requires permission:**
-- Using "4TS" in product names
-- Implying endorsement by FERZ LLC
+- Using "5TS" in product names
+- Implying endorsement by FERZ, Inc.
 - Creating derivative standards
 
 Contact contact@ferzconsulting.com for trademark licensing.
@@ -251,7 +252,7 @@ Contact contact@ferzconsulting.com for trademark licensing.
 ### What about false conformance claims?
 
 False conformance claims may result in:
-- Revocation of permission to use 4TS trademarks
+- Revocation of permission to use 5TS trademarks
 - Public correction in GitHub repository
 - Potential legal action for fraudulent claims
 
@@ -259,11 +260,11 @@ We monitor conformance claims and request verification logs when published.
 
 ## Security Questions
 
-### How secure is 4TS?
+### How secure is 5TS?
 
 Security depends on implementation:
 
-**4TS provides:**
+**5TS provides:**
 - Cryptographic signatures for authenticity
 - Hash-based tampering detection
 - Fail-closed design (deny by default)
@@ -310,22 +311,22 @@ Verifiers should reject PCDs:
 
 ## Licensing & Commercial Questions
 
-### Can I sell products that use 4TS?
+### Can I sell products that use 5TS?
 
 **Yes!** The schemas and tools are MIT-licensed, allowing commercial use without fees.
 
 ### Do I need a commercial license?
 
 **Not for implementation.** Commercial licenses are only needed for:
-- Using 4TS branding in product names
+- Using 5TS branding in product names
 - Creating derivative specifications
-- Offering 4TS conformance as a paid service
+- Offering conformance to the v1.0.2 conformance bundle as a paid service
 
-### Who owns 4TS?
+### Who owns 5TS?
 
-FERZ LLC is the steward of the 4TS standard, maintaining it as an open, vendor-neutral specification.
+FERZ, Inc. is the steward of the 5TS standard, maintaining it as an open, vendor-neutral specification.
 
-### Can I contribute to 4TS?
+### Can I contribute to 5TS?
 
 Yes! See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines. Contributions to schemas/tools are MIT-licensed. Specification changes require FERZ approval due to CC BY-NC-ND licensing.
 
@@ -333,14 +334,14 @@ Yes! See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines. Contributions to 
 
 ### Where can I ask questions?
 
-- **Technical questions:** [GitHub Discussions](https://github.com/ferz-ai/4ts-standard/discussions)
-- **Bug reports:** [GitHub Issues](https://github.com/ferz-ai/4ts-standard/issues)
+- **Technical questions:** [GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions)
+- **Bug reports:** [GitHub Issues](https://github.com/edmeyman/4ts-standard/issues)
 - **Email support:** contact@ferzconsulting.com
 - **Security issues:** security@ferzconsulting.com (private disclosure)
 
 ### Is there commercial support available?
 
-Yes, FERZ LLC offers:
+Yes, FERZ, Inc. offers:
 - Implementation consulting
 - Custom integration development
 - Training and workshops
@@ -357,6 +358,6 @@ Contact contact@ferzconsulting.com for information.
 
 ---
 
-**Don't see your question?** [Ask in GitHub Discussions](https://github.com/ferz-ai/4ts-standard/discussions) or email contact@ferzconsulting.com
+**Don't see your question?** [Ask in GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions) or email contact@ferzconsulting.com
 
-**© 2025 FERZ LLC** | [4TS Standard](https://github.com/ferz-ai/4ts-standard)
+**© 2025 FERZ, Inc.** | [5TS Standard](https://github.com/edmeyman/4ts-standard)
