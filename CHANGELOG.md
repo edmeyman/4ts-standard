@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Four Tests Standard will be documented in this file.
+All notable changes to the Five Tests Standard (formerly Four Tests Standard, 4TS) will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -12,6 +12,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Performance benchmarks for reference verifier
 - Visual PCD explorer tool
 - Interactive conformance checker
+
+## [1.2.0] - 2026-06
+
+### Changed
+- **Renamed 4TS to 5TS** — the Four Tests Standard becomes the Five Tests Standard. "4TS" remains valid as the historical name for versions through 1.0.x.
+
+### Added
+- **PROVENANCE** — fifth normative test. The inputs a verdict rests on have an established origin; a control must not ground a verdict on inputs whose origin cannot be established. Provenance is origin, not truth (§1.1, §1.4).
+- **Provenance conformance status** — normative but not yet conformance-testable. The conformance bundle stays at v1.0.2 (four testable vectors); Provenance conformance and full five-test conformance are not assertable until a later bundle defines input-origin binding and validation vectors (§7.4).
+
+### Unchanged
+- **Conformance bundle v1.0.2** — schemas, vectors, and validator are untouched. Existing four-test conformance claims remain valid. No implementation must update anything solely because v1.2.0 published.
 
 ## [1.0.3] - 2026-02-11
 
@@ -173,13 +185,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Future Roadmap
 
-### v1.1.0 (Planned Q1 2026)
+### Planned (post-1.2.0)
 - Enhanced Merkle tree support for streaming verification
 - Additional test vectors for edge cases
 - Performance optimization guidelines
 - Integration examples with major ML frameworks
-
-### v1.2.0 (Planned Q2 2026)
 - Multi-party approval workflows
 - Delegation and proxy signing
 - Batch PCD verification
@@ -204,7 +214,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 2. Draft specification changes
 3. Update conformance bundle
 4. Community review period (2-4 weeks for breaking changes)
-5. Final approval by FERZ LLC technical team
+5. Final approval by FERZ, Inc. technical team
 6. Publication and announcement
 
 ### Support Policy

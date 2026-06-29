@@ -1,11 +1,11 @@
-# Four Tests Standard (4TS) - Verifiable AI Governance
+# Five Tests Standard (5TS) - Verifiable AI Governance
 
-**Version:** 1.0.3  
-**Steward:** FERZ LLC  
+**Version:** 1.2.0  
+**Steward:** FERZ, Inc.  
 **License:** CC BY-NC-ND 4.0 (specification), MIT (schemas/test vectors)
 
 > **The TCP/IP layer for AI governance**  
-> Ensure consequential AI decisions are stop-capable, owned, replayable, and escalatable—by design.
+> Ensure consequential AI decisions are stop-capable, owned, replayable, escalatable, and grounded in inputs of established origin, by design.
 
 [![SSRN](https://img.shields.io/badge/SSRN-5688982-blue)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
 [![ResearchGate](https://img.shields.io/badge/ResearchGate-Publication-00CCBB)](https://www.researchgate.net/publication/397176413_Verifiable_AI_Governance_The_Four_Tests_Standard_4TS_and_Proof-Carrying_Decisions)
@@ -33,14 +33,14 @@ and Proof-Carrying Decisions. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abst
 
 ## Overview
 
-The Four Tests Standard (4TS) is a vendor-neutral technical specification for verifiable AI governance. It enables organizations to prove that AI systems in regulated industries meet compliance requirements through:
+The Five Tests Standard (5TS) is a vendor-neutral technical specification for verifiable AI governance. It enables organizations to prove that AI systems in regulated industries meet compliance requirements through:
 
 - **Proof-Carrying Decisions (PCDs):** Canonical JSON objects encoding all information needed to verify governance at decision boundaries
 - **Deterministic Verification:** Mathematical acceptance criteria that produce consistent results independent of who verifies
 - **Two Replay Modes:** State-Replay for byte-exact reproduction, Protocol-Replay for gate-based validation
 - **Fail-Closed Design:** Actions blocked by default unless approval can be cryptographically proven
 
-## The Four Tests
+## The Five Tests
 
 | Test | Requirement | Enforced Through |
 |------|-------------|------------------|
@@ -48,6 +48,9 @@ The Four Tests Standard (4TS) is a vendor-neutral technical specification for ve
 | **OWNERSHIP** | Identified authority signs policy before execution | Cryptographic signatures with timestamp ordering |
 | **REPLAY** | Decision can be reproduced at boundary | State-Replay or Protocol-Replay modes |
 | **ESCALATION** | Mandatory custody transfer on denial/thresholds | Explicit routing with human-in-loop paths |
+| **PROVENANCE** *(normative; conformance deferred)* | Inputs grounding a verdict have an established origin | Origin, not truth; conformance vectors deferred to a later bundle |
+
+> **5TS v1.2.0** specifies five normative tests. The machine-checkable conformance bundle remains **v1.0.2** and tests four of them; Provenance conformance is not yet assertable and lands in a later bundle once input-origin binding is defined. Existing four-test conformance claims remain valid.
 
 ## The Enforcement Triad
 
@@ -156,7 +159,7 @@ print(pcd.to_json())
 
 ## Use Cases
 
-4TS supports diverse AI deployment patterns:
+5TS supports diverse AI deployment patterns:
 
 | Profile | PCD Emission | Replay Mode | Key Considerations |
 |---------|--------------|-------------|-------------------|
@@ -168,7 +171,7 @@ print(pcd.to_json())
 
 ## Conformance
 
-To claim 4TS conformance, implementers must:
+To claim conformance to the v1.0.2 conformance bundle (four of the five tests), implementers must:
 
 1. **Pass all test vectors:** 3 positive (PASS), 5 negative (expected failures with correct error codes)
 2. **Publish conformance claim:**
@@ -177,7 +180,7 @@ To claim 4TS conformance, implementers must:
    ```
 3. **Implement core verification:** PCD schema validation, signature verification, replay logic, fail-closed enforcement
 
-See [SPECIFICATION.md](SPECIFICATION.md) §7 for complete conformance requirements.
+Provenance conformance, and full five-test conformance, are not yet assertable; see §7.4. See [SPECIFICATION.md](SPECIFICATION.md) §7 for complete conformance requirements.
 
 ## Implementation Profiles
 
@@ -239,6 +242,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
 | 1.0.1 | 2025-10 | Added adoption profiles, clarified gate format, expanded error codes |
 | 1.0.2 | 2025-11 | Added traceability matrix, glossary, concrete PCD examples |
 | 1.0.3 | 2026-02 | Added Enforcement Triad (ALLOW/DENY/ABSTAIN) with ABSTAIN operational contract |
+| 1.2.0 | 2026-06 | Renamed 4TS to 5TS; added Provenance as fifth normative test; Provenance conformance deferred; conformance bundle unchanged at v1.0.2 |
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
 

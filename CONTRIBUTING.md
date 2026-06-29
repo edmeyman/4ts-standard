@@ -1,6 +1,6 @@
-# Contributing to 4TS
+# Contributing to 5TS
 
-Thank you for your interest in contributing to the Four Tests Standard! This document provides guidelines for contributing to the project.
+Thank you for your interest in contributing to the Five Tests Standard! This document provides guidelines for contributing to the project.
 
 ## Code of Conduct
 
@@ -37,14 +37,14 @@ We are committed to providing a welcoming and inclusive environment for all cont
 
 **Feature Requests:**
 - Explain the use case and rationale
-- Describe how it aligns with the Four Tests principles
+- Describe how it aligns with the Five Tests principles
 - Consider backward compatibility implications
 
 ### Submitting Changes
 
 1. **Fork the Repository**
    ```bash
-   git clone https://github.com/ferz-ai/4ts-standard.git
+   git clone https://github.com/edmeyman/4ts-standard.git
    cd 4ts-standard
    git checkout -b feature/your-feature-name
    ```
@@ -94,7 +94,7 @@ We are committed to providing a welcoming and inclusive environment for all cont
 - Modified verification logic
 - Incompatible updates
 
-⚠️ **Note:** Due to CC BY-NC-ND 4.0 licensing, specification changes require approval from FERZ LLC as steward. Open an issue for discussion before investing significant effort.
+⚠️ **Note:** Due to CC BY-NC-ND 4.0 licensing, specification changes require approval from FERZ, Inc. as steward. Open an issue for discussion before investing significant effort.
 
 #### 2. Schema & Tools (MIT Licensed)
 
@@ -130,7 +130,7 @@ We are committed to providing a welcoming and inclusive environment for all cont
 
 ```bash
 # Clone repository
-git clone https://github.com/ferz-ai/4ts-standard.git
+git clone https://github.com/edmeyman/4ts-standard.git
 cd 4ts-standard
 
 # Create virtual environment
@@ -206,7 +206,7 @@ pylint tools/
 
 ### Versioning
 
-4TS follows Semantic Versioning (SemVer):
+5TS follows Semantic Versioning (SemVer):
 
 - **MAJOR** (x.0.0): Breaking changes to PCD schema or verification logic
 - **MINOR** (1.x.0): New optional features under must-ignore policy
@@ -289,7 +289,7 @@ Schema changes require careful consideration:
 **Technical Decisions:**
 - Proposals discussed in GitHub issues
 - Community feedback period (minimum 2 weeks for breaking changes)
-- Final decision by FERZ LLC technical team
+- Final decision by FERZ, Inc. technical team
 - Transparency through public issue tracker
 
 **Process Decisions:**
@@ -320,7 +320,7 @@ Contributors are recognized through:
 
 ## Licensing
 
-By contributing to 4TS, you agree that:
+By contributing to 5TS, you agree that:
 
 1. **Specification contributions** will be licensed under CC BY-NC-ND 4.0
 2. **Schema/code contributions** will be licensed under MIT
@@ -338,6 +338,6 @@ See [LICENSE.md](LICENSE.md) for complete terms.
 
 ---
 
-Thank you for contributing to 4TS! Together we're building critical infrastructure for verifiable AI governance.
+Thank you for contributing to 5TS! Together we're building critical infrastructure for verifiable AI governance.
 
-**© 2025 FERZ LLC**
+**© 2025 FERZ, Inc.**

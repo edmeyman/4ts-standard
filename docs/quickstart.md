@@ -1,6 +1,6 @@
-# 4TS Quick Start Guide
+# 5TS Quick Start Guide
 
-**Get started with the Four Tests Standard in 10 minutes**
+**Get started with the Five Tests Standard in 10 minutes**
 
 ## What You'll Learn
 
@@ -20,7 +20,7 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/ferz-ai/4ts-standard.git
+git clone https://github.com/edmeyman/4ts-standard.git
 cd 4ts-standard
 ```
 
@@ -134,7 +134,7 @@ Let's examine the model deployment example:
 
 ### Key Components
 
-| Section | Purpose | Four Tests |
+| Section | Purpose | Tests |
 |---------|---------|------------|
 | **decision** | What action was taken and when | STOP, ESCALATION |
 | **artifacts** | All inputs that influenced the decision | REPLAY |
@@ -297,13 +297,13 @@ print(json.dumps(pcd, indent=2))
 
 ### Get Help
 
-- **Questions:** [GitHub Discussions](https://github.com/ferz-ai/4ts-standard/discussions)
-- **Issues:** [GitHub Issues](https://github.com/ferz-ai/4ts-standard/issues)
+- **Questions:** [GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions)
+- **Issues:** [GitHub Issues](https://github.com/edmeyman/4ts-standard/issues)
 - **Email:** contact@ferzconsulting.com
 
 ## Conformance Checklist
 
-To claim 4TS conformance, your implementation must:
+To claim conformance to the v1.0.2 conformance bundle (four of the five tests; Provenance conformance is not yet assertable), your implementation must:
 
 - [ ] Pass PCD schema validation
 - [ ] Enforce timestamp ordering (policy_signed ≤ exec_start ≤ exec_end)
@@ -318,4 +318,4 @@ See [SPECIFICATION.md](../SPECIFICATION.md) §7 for complete requirements.
 
 ---
 
-**© 2025 FERZ LLC** | [4TS Standard](https://github.com/ferz-ai/4ts-standard)
+**© 2025 FERZ, Inc.** | [5TS Standard](https://github.com/edmeyman/4ts-standard)
