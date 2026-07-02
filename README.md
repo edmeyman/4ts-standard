@@ -18,6 +18,7 @@
 Edward Meyman | October 2025; revised June 2026
 
 Available on:
+- [Zenodo](https://doi.org/10.5281/zenodo.21048661) (canonical; concept DOI, resolves to the latest version)
 - [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5688982)
 
 *Establishes the formal specification, theoretical foundations, and conformance framing for verifiable AI governance through proof-carrying decisions.*
