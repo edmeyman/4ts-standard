@@ -64,7 +64,7 @@ A governance system that only warns is a monitoring system. Deterministic govern
 
 | Verdict | Meaning | Operational Effect |
 | --- | --- | --- |
-| **ALLOW** | Action authorized under governing policy | Execution proceeds; effect-token issued |
+| **ALLOW** | Action authorized under governing policy | Execution may proceed; an effect-token is issued where an external effect is authorized |
 | **DENY** | Policy violation identified | Execution halted; no side-effects permitted |
 | **ABSTAIN** | Policy cannot resolve the action to ALLOW or DENY | Authority returned; action blocked pending authorized human resolution |
 
@@ -78,6 +78,8 @@ A governance system that only warns is a monitoring system. Deterministic govern
 - In regulated contexts, `ABSTAIN` is **fail-closed**: the action does not proceed unless and until an authorized party renders a definitive verdict
 - `ABSTAIN` is not a soft "maybe"; it is a hard gate that transfers decision authority while preventing unauthorized execution
 - Default behavior: `ABSTAIN` blocks execution unless and until an authorized override resolves the held action.
+
+**Schema mapping.** In the v1.0.2 PCD schema, ALLOW maps to `approved`, DENY maps to `denied`, and ABSTAIN maps to `escalated`. The field value `escalated` records an ABSTAIN verdict and its mandatory transfer of authority; ESCALATE is not a verdict.
 
 ## Quick Start
 
@@ -136,17 +138,17 @@ Use this file as the starting point for your own PCD and validate it with the qu
 │   │   ├── PCD-A1_state_auto_approve.json
 │   │   ├── PCD-A2_protocol_with_gates.json
 │   │   └── PCD-A3_fail_closed_denial.json
-│   └── negative/               # Must FAIL with specific errors (5 vectors)
-│       ├── NC-1_posthoc_signature.json
-│       ├── NC-2_missing_custody.json
-│       ├── NC-3_untyped_lineage.json
-│       ├── NC-4_side_effect_on_denial.json
-│       └── NC-5_protocol_gate_fail.json
+│   ├── negative/               # Must FAIL with specific errors (5 vectors)
+│   │   ├── NC-1_posthoc_signature.json
+│   │   ├── NC-2_missing_custody.json
+│   │   ├── NC-3_key_separation.json
+│   │   ├── NC-4_untyped_lineage.json
+│   │   └── NC-5_side_effect_on_denial.json
+│   └── MANIFEST.json               # Bundle file hashes and expected results
 │
 ├── tools/                       # Reference implementations
-│   ├── validator/              # Python reference verifier
-│   │   ├── quickstart_validate.py
-│   │   └── verifier.py
+│   ├── validator/              # Quickstart conformance validator
+│   │   └── quickstart_validate.py
 │   └── canonicalizer/          # JSON canonicalization
 │       └── canonicalize.py
 │
@@ -254,7 +256,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
   - No derivatives
   
 - **Schemas, Examples, Tools, and Test Vectors:** [MIT License](https://opensource.org/licenses/MIT)
-  - Permissive use for implementation
+  - Permissive use of the published code (patent rights reserved; see [LICENSE.md](LICENSE.md))
 
 See [LICENSE.md](LICENSE.md) for complete terms.
 
@@ -262,4 +264,4 @@ For commercial licensing inquiries: info@ferz.ai
 
 ---
 
-**© 2026 FERZ, Inc.** | Vendor-neutral open standard for verifiable AI governance
+**© 2025–2026 FERZ, Inc.** | Vendor-neutral published standard for verifiable AI governance

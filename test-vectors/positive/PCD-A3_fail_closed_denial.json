@@ -1,0 +1,95 @@
+{
+  "pcd_spec_version": "1.0.2",
+  "decision": {
+    "id": "pcd-a3-fail-closed-denial",
+    "boundary": "inference",
+    "outcome": "denied",
+    "effective_window": {
+      "start": "2025-11-15T00:00:00Z",
+      "end": "2026-11-15T00:00:00Z"
+    },
+    "routed": true,
+    "replayable": true,
+    "counterfactual": {
+      "flip_var": "policy_invariants.gates.g1",
+      "explanation": "Denial flips to approval only if the declared policy gate threshold is satisfied"
+    }
+  },
+  "artifacts": {
+    "models": [
+      {
+        "id": "pcd-a3-fail-closed-denial-model",
+        "sha256": "f05b9bdbeb1eba7a10eeab157d6437c01d3e4501024d9a4b69da153cd6516d3e"
+      }
+    ],
+    "policies": [
+      {
+        "id": "pcd-a3-fail-closed-denial-policy",
+        "sha256": "e1af4999d9c88f4a1604906d35ebc95a6a2115acd2151f99eb227167875cdfff"
+      }
+    ]
+  },
+  "lineage": [
+    {
+      "id": "step-1",
+      "op": "policy_evaluation",
+      "types": {
+        "inputs": [
+          "model",
+          "policy"
+        ],
+        "outputs": [
+          "verdict"
+        ]
+      },
+      "inputs": [
+        "pcd-a3-fail-closed-denial-model",
+        "pcd-a3-fail-closed-denial-policy"
+      ],
+      "outputs": [
+        "pcd-a3-fail-closed-denial-verdict"
+      ],
+      "policy_refs": [
+        "pcd-a3-fail-closed-denial-policy"
+      ],
+      "stochastic": false
+    }
+  ],
+  "controls": {
+    "fail_closed": true,
+    "policy_dsl": "internal-v1",
+    "replay": {
+      "strategy": "state"
+    }
+  },
+  "attestations": {
+    "canonical_hash": "8c801aa954975955dc0d6dc8d8b8b678851fc70547b4026f6c5e52d4d3a0e50c",
+    "signatures": [
+      {
+        "key_id": "policy-key-001",
+        "algorithm": "EdDSA",
+        "signature": "f4b76c6bc8f4feb4fedaff76c0f56c7ec58313be685680b8ca4bed57b072a067",
+        "role": "policy"
+      },
+      {
+        "key_id": "runtime-key-005",
+        "algorithm": "EdDSA",
+        "signature": "a85c38914311b74f43233bc955b8c12ac89008c9dbab7db96a083e032c11cf0f",
+        "role": "runtime"
+      }
+    ],
+    "timestamps": {
+      "policy_signed": "2025-11-14T10:00:00Z",
+      "exec_start": "2025-11-14T10:30:00Z",
+      "exec_end": "2025-11-14T10:31:00Z"
+    },
+    "key_roles": {
+      "policy": [
+        "policy-key-001"
+      ],
+      "runtime": [
+        "runtime-key-005"
+      ]
+    }
+  }
+}

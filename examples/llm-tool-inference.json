@@ -1,0 +1,147 @@
+{
+  "pcd_spec_version": "1.0.2",
+  "decision": {
+    "id": "inference-llm-tool-crm-update-55201",
+    "boundary": "inference",
+    "outcome": "approved",
+    "effective_window": {
+      "start": "2025-11-20T09:15:00Z",
+      "end": "2025-11-20T09:20:00Z"
+    },
+    "routed": false,
+    "replayable": true,
+    "counterfactual": {
+      "flip_var": "policy_invariants.gates.g1",
+      "explanation": "If schema validation of the tool proposal fails, the decision is denied"
+    }
+  },
+  "artifacts": {
+    "models": [
+      {
+        "id": "assistant-model-2025-11",
+        "sha256": "dc10480633efd6132cb881f796262a946accd2e6c13df9f224057a0ff4369aa5"
+      }
+    ],
+    "policies": [
+      {
+        "id": "crm-write-policy-v4",
+        "sha256": "b11e2557f37439da34285f902a03d21b94c7b09470f7fcb5f97395c085295c09"
+      }
+    ],
+    "prompts": [
+      {
+        "id": "tool-call-prompt-55201",
+        "sha256": "10f8094965e35f29ea5a95681e5fed71c46ce5e727b1ec4923dd7e7714df49a0"
+      }
+    ],
+    "config": [
+      {
+        "id": "tool-registry-config-v9",
+        "sha256": "2f22694165b5a7b821e5cbd0508f4f38a26723fb5d07346d59cb250dba737c75"
+      }
+    ]
+  },
+  "lineage": [
+    {
+      "id": "step-1-proposal",
+      "op": "tool_call_proposal",
+      "types": {
+        "inputs": [
+          "prompt",
+          "context"
+        ],
+        "outputs": [
+          "tool_proposal"
+        ]
+      },
+      "inputs": [
+        "tool-call-prompt-55201",
+        "conversation-context-55201"
+      ],
+      "outputs": [
+        "tool-proposal-55201"
+      ],
+      "policy_refs": [
+        "crm-write-policy-v4"
+      ],
+      "stochastic": true
+    },
+    {
+      "id": "step-2-schema-validation",
+      "op": "proposal_schema_validation",
+      "types": {
+        "inputs": [
+          "tool_proposal"
+        ],
+        "outputs": [
+          "validated_proposal"
+        ]
+      },
+      "inputs": [
+        "tool-proposal-55201"
+      ],
+      "outputs": [
+        "validated-proposal-55201"
+      ],
+      "policy_refs": [
+        "crm-write-policy-v4"
+      ],
+      "stochastic": false
+    }
+  ],
+  "controls": {
+    "fail_closed": true,
+    "policy_dsl": "internal-v1",
+    "replay": {
+      "strategy": "protocol"
+    },
+    "policy_invariants": {
+      "gates": [
+        {
+          "id": "g1",
+          "metric": "proposal_schema_valid",
+          "dataset": "tool-proposal-55201",
+          "op": "==",
+          "value": true
+        },
+        {
+          "id": "g2",
+          "metric": "write_scope_allowed",
+          "dataset": "crm-write-policy-v4",
+          "op": "==",
+          "value": true
+        }
+      ]
+    }
+  },
+  "attestations": {
+    "canonical_hash": "3312943f3185fbcd4e58fa11f8486097a13771ac4264d3f519c65868902766d6",
+    "signatures": [
+      {
+        "key_id": "policy-key-014",
+        "algorithm": "EdDSA",
+        "signature": "977e1cebf8999bf14e464c25ed380469495f7b927427a3902a225447c15af840",
+        "role": "policy"
+      },
+      {
+        "key_id": "runtime-key-031",
+        "algorithm": "EdDSA",
+        "signature": "71b45e5f401ccac3bc088f08d95bd1fd1a531aac765f393eb78c01d0b886374a",
+        "role": "runtime"
+      }
+    ],
+    "timestamps": {
+      "policy_signed": "2025-11-19T18:00:00Z",
+      "exec_start": "2025-11-20T09:15:02Z",
+      "exec_end": "2025-11-20T09:15:04Z"
+    },
+    "key_roles": {
+      "policy": [
+        "policy-key-014"
+      ],
+      "runtime": [
+        "runtime-key-031"
+      ]
+    }
+  }
+}

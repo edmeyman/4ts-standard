@@ -59,7 +59,10 @@ python tools/validator/quickstart_validate.py --json examples/model-deployment-s
 ```bash
 python tools/validator/quickstart_validate.py --all
 
-# This validates all example PCDs and generates a conformance report
+# This runs the v1.0.2 conformance suite (3 positive vectors that must
+# PASS, 5 negative vectors that must FAIL with the expected error codes)
+# and then validates the example PCDs. Expected result: 8/8 vectors
+# behaved as expected.
 ```
 
 ## Understanding a PCD
@@ -81,26 +84,42 @@ Let's examine the model deployment example:
     "replayable": true
   },
   "artifacts": {
-    "models": [{
-      "id": "diagnostic-model-v2.1",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    }],
-    "policies": [{
-      "id": "fda-510k-compliance-policy",
-      "sha256": "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e"
-    }]
+    "models": [
+      {
+        "id": "diagnostic-model-v2.1",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "policies": [
+      {
+        "id": "fda-510k-compliance-policy",
+        "sha256": "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e"
+      }
+    ]
   },
   "lineage": [
     {
       "id": "step-1-validation",
       "op": "model_validation",
       "types": {
-        "inputs": ["model", "test_dataset"],
-        "outputs": ["validation_report"]
+        "inputs": [
+          "model",
+          "test_dataset"
+        ],
+        "outputs": [
+          "validation_report"
+        ]
       },
-      "inputs": ["diagnostic-model-v2.1", "fda-test-set-2025"],
-      "outputs": ["validation-report-001"],
-      "policy_refs": ["fda-510k-compliance-policy"],
+      "inputs": [
+        "diagnostic-model-v2.1",
+        "fda-test-set-2025"
+      ],
+      "outputs": [
+        "validation-report-001"
+      ],
+      "policy_refs": [
+        "fda-510k-compliance-policy"
+      ],
       "stochastic": false
     }
   ],
@@ -112,21 +131,33 @@ Let's examine the model deployment example:
     }
   },
   "attestations": {
-    "canonical_hash": "c157a79031e1c40f85931829bc5fc552bf763f332c0e35c0a90e3e3e73e26c41",
-    "signatures": [{
-      "key_id": "policy-key-001",
-      "algorithm": "EdDSA",
-      "signature": "5a8c9d2e...",
-      "role": "policy"
-    }],
+    "canonical_hash": "0c2e5030dd85cf285468e1dda52d69efa342524df7eb7cba937045032b2ac07a",
+    "signatures": [
+      {
+        "key_id": "policy-key-001",
+        "algorithm": "EdDSA",
+        "signature": "5a8c9d2e1f3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d",
+        "role": "policy"
+      },
+      {
+        "key_id": "runtime-key-005",
+        "algorithm": "EdDSA",
+        "signature": "bdedf2792a37520df72ede8d05c5954e4c33a2797502bde61e758b0f8c0d2201",
+        "role": "runtime"
+      }
+    ],
     "timestamps": {
       "policy_signed": "2025-10-30T14:00:00Z",
       "exec_start": "2025-10-30T14:30:00Z",
       "exec_end": "2025-10-30T14:35:00Z"
     },
     "key_roles": {
-      "policy": ["policy-key-001"],
-      "runtime": ["runtime-key-005"]
+      "policy": [
+        "policy-key-001"
+      ],
+      "runtime": [
+        "runtime-key-005"
+      ]
     }
   }
 }
@@ -140,22 +171,41 @@ Let's examine the model deployment example:
 | **artifacts** | All inputs that influenced the decision | REPLAY |
 | **lineage** | Step-by-step execution trace | REPLAY |
 | **controls** | Policy enforcement rules | STOP, REPLAY |
-| **attestations** | Cryptographic proof of authority | OWNERSHIP |
+| **attestations** | Signed, tamper-evident evidence of authority | OWNERSHIP |
 
 ## Create Your First PCD
 
 ### Example: Simple Approval Decision
 
 ```python
+import copy
+import hashlib
 import json
 from datetime import datetime, timezone
-import hashlib
+
+
+def compute_canonical_hash(pcd: dict) -> str:
+    """
+    Compute the PCD canonical_hash over the pre-attestation envelope
+    (SPECIFICATION.md section 5): remove attestations.canonical_hash,
+    blank every attestations.signatures[].signature value, canonicalize
+    (sorted keys, compact separators, UTF-8), then SHA-256.
+    """
+    envelope = copy.deepcopy(pcd)
+    attestations = envelope.get("attestations", {})
+    attestations.pop("canonical_hash", None)
+    for sig in attestations.get("signatures", []):
+        sig["signature"] = ""
+    canonical_json = json.dumps(envelope, sort_keys=True, ensure_ascii=False,
+                                separators=(",", ":"))
+    return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()
+
 
 def create_simple_pcd(model_id: str, model_sha256: str) -> dict:
     """Create a minimal valid PCD for model deployment"""
-    
-    now = datetime.now(timezone.utc).isoformat()
-    
+
+    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
     pcd = {
         "pcd_spec_version": "1.0.2",
         "decision": {
@@ -193,13 +243,24 @@ def create_simple_pcd(model_id: str, model_sha256: str) -> dict:
             }
         },
         "attestations": {
-            "canonical_hash": "placeholder",  # Compute after canonicalization
-            "signatures": [{
-                "key_id": "policy-key-001",
-                "algorithm": "EdDSA",
-                "signature": "placeholder",  # Sign canonical_hash
-                "role": "policy"
-            }],
+            "canonical_hash": "",  # Computed below over the envelope
+            "signatures": [
+                {
+                    "key_id": "policy-key-001",
+                    "algorithm": "EdDSA",
+                    # Demo value. Real systems sign the canonical_hash with
+                    # the policy key; signature values are excluded from the
+                    # hash envelope, so signing happens after hashing.
+                    "signature": "demo-policy-signature",
+                    "role": "policy"
+                },
+                {
+                    "key_id": "runtime-key-001",
+                    "algorithm": "EdDSA",
+                    "signature": "demo-runtime-signature",
+                    "role": "runtime"
+                }
+            ],
             "timestamps": {
                 "policy_signed": now,
                 "exec_start": now,
@@ -211,12 +272,25 @@ def create_simple_pcd(model_id: str, model_sha256: str) -> dict:
             }
         }
     }
-    
+
+    # Envelope flow: hash first (signature values excluded), then sign.
+    pcd["attestations"]["canonical_hash"] = compute_canonical_hash(pcd)
+
     return pcd
 
+
 # Usage
-pcd = create_simple_pcd("my-model-v1.0", "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
+pcd = create_simple_pcd("my-model-v1.0",
+                        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
 print(json.dumps(pcd, indent=2))
+```
+
+The demo signature values pass the validator's structural checks; production
+systems replace them with real signatures over the canonical_hash. Save the
+output and validate it:
+
+```bash
+python tools/validator/quickstart_validate.py --json my-first-pcd.json
 ```
 
 ## Common Patterns
@@ -299,7 +373,7 @@ print(json.dumps(pcd, indent=2))
 
 - **Questions:** [GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions)
 - **Issues:** [GitHub Issues](https://github.com/edmeyman/4ts-standard/issues)
-- **Email:** contact@ferzconsulting.com
+- **Email:** info@ferz.ai
 
 ## Conformance Checklist
 
@@ -318,4 +392,4 @@ See [SPECIFICATION.md](../SPECIFICATION.md) §7 for complete requirements.
 
 ---
 
-**© 2025 FERZ, Inc.** | [5TS Standard](https://github.com/edmeyman/4ts-standard)
+**© 2025–2026 FERZ, Inc.** | [5TS Standard](https://github.com/edmeyman/4ts-standard)

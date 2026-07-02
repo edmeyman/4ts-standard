@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/ferz-ai/4ts-standard/schemas/pcd.schema.json",
   "title": "Proof-Carrying Decision (PCD)",
-  "description": "Schema for 4TS Proof-Carrying Decisions v1.0.2",
+  "description": "Schema for 5TS (formerly 4TS) Proof-Carrying Decisions v1.0.2",
   "type": "object",
   "required": [
     "pcd_spec_version",
@@ -203,7 +203,7 @@
         "canonical_hash": {
           "type": "string",
           "pattern": "^[a-f0-9]{64}$",
-          "description": "SHA-256 hash of canonicalized PCD"
+          "description": "SHA-256 hash of the pre-attestation envelope (SPECIFICATION.md section 5)"
         },
         "signatures": {
           "type": "array",

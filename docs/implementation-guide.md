@@ -1,6 +1,6 @@
 # 5TS Implementation Guide
 
-**Version:** 1.0.2  
+**Version:** 1.0.2 (documents conformance bundle v1.0.2; the standard is 5TS v1.2.0)  
 **Audience:** AI/ML engineers, platform architects, compliance engineers  
 **Prerequisites:** Familiarity with SPECIFICATION.md §§0-11
 
@@ -35,7 +35,7 @@ This guide provides detailed implementation patterns for building conformant sys
 
 1. **Fail-closed by design:** Systems deny by default; approval must be proven
 2. **Deterministic verification:** Same inputs always produce same verification result
-3. **Evidence before effects:** No side effects without cryptographic proof of approval
+3. **Evidence before effects:** No side effects without signed, tamper-evident evidence of approval
 
 ### Architecture Overview
 
@@ -61,6 +61,7 @@ pip install pycryptodome jsonschema requests
 
 # 2. Generate your first PCD
 from datetime import datetime
+import copy
 import json
 import hashlib
 
@@ -557,9 +558,21 @@ class PCDBuilder:
         }
     
     def _compute_canonical_hash(self, pcd):
-        """Compute deterministic canonical hash of PCD."""
-        canonical_json = self._canonicalize(pcd)
-        return hashlib.sha256(canonical_json.encode('utf-8')).hexdigest()
+        """
+        Compute the PCD canonical_hash over the pre-attestation envelope
+        (SPECIFICATION.md section 5): remove attestations.canonical_hash
+        and blank every attestations.signatures[].signature value, then
+        canonicalize and hash.
+        """
+        envelope = copy.deepcopy(pcd)
+        attestations = envelope.get("attestations", {})
+        attestations.pop("canonical_hash", None)
+
+        for sig in attestations.get("signatures", []):
+            sig["signature"] = ""
+
+        canonical_json = self._canonicalize(envelope)
+        return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()
     
     def _canonicalize(self, obj):
         """Produce canonical JSON representation."""
@@ -1359,9 +1372,9 @@ def test_conformance_vectors():
     negative_vectors = [
         ("test-vectors/negative/NC-1_posthoc_signature.json", "E_PREEXEC_SIGNING"),
         ("test-vectors/negative/NC-2_missing_custody.json", "E_MISSING_CUSTODY"),
-        ("test-vectors/negative/NC-3_untyped_lineage.json", "E_UNTYPED_LINEAGE"),
-        ("test-vectors/negative/NC-4_side_effect_on_denial.json", "E_SIDE_EFFECT_ON_DENIAL"),
-        ("test-vectors/negative/NC-5_protocol_gate_fail.json", "E_PROTOCOL_GATE_FAIL")
+        ("test-vectors/negative/NC-3_key_separation.json", "E_KEY_SEPARATION"),
+        ("test-vectors/negative/NC-4_untyped_lineage.json", "E_UNTYPED_LINEAGE"),
+        ("test-vectors/negative/NC-5_side_effect_on_denial.json", "E_SIDE_EFFECT_ON_DENIAL")
     ]
     
     for vector_path, expected_error in negative_vectors:
@@ -1391,7 +1404,7 @@ def test_publish_conformance_claim():
     manifest_hash = hashlib.sha256(json.dumps(manifest).encode()).hexdigest()
     
     # Publish conformance claim
-    claim = f"{tool_name}@{tool_version} • PCD-{pcd_major} • Bundle-{bundle_version} • 8/8 • sha256:{manifest_hash[:16]}... • https://example.com/4ts/logs"
+    claim = f"{tool_name}@{tool_version} • PCD-{pcd_major} • Bundle-{bundle_version} • 8/8 • sha256:{manifest_hash[:16]}... • https://example.com/5ts/logs"
     
     print(f"Conformance Claim: {claim}")
     
@@ -1527,9 +1540,9 @@ class DebugPCDVerifier(PCDVerifier):
 ## Contact and Support
 
 **Technical Questions:** GitHub Issues at https://github.com/edmeyman/4ts-standard/issues  
-**Email:** contact@ferzconsulting.com  
+**Email:** info@ferz.ai  
 **Discussions:** GitHub Discussions at https://github.com/edmeyman/4ts-standard/discussions
 
 ---
 
-© 2025 FERZ, Inc. This implementation guide is licensed under CC BY-NC-ND 4.0.
+© 2025–2026 FERZ, Inc. This implementation guide is licensed under CC BY-NC-ND 4.0.

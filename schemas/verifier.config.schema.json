@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "5TS Verifier Configuration",
+  "description": "Configuration schema for 5TS verifiers (conformance bundle v1.0.2)",
+  "type": "object",
+  "required": ["pcd_schema_path"],
+  "properties": {
+    "pcd_schema_path": {
+      "type": "string",
+      "description": "Filesystem path to pcd.schema.json"
+    },
+    "test_vectors_dir": {
+      "type": "string",
+      "description": "Filesystem path to the test-vectors directory"
+    },
+    "clock_skew_tolerance_seconds": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 30,
+      "default": 0,
+      "description": "Optional timestamp tolerance for distributed components (see SPECIFICATION.md section 9.3). Tolerances above zero must be audit-logged."
+    },
+    "verify_signatures": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to cryptographically verify signature fields. The quickstart validator checks structure only; full verifiers should enable this."
+    },
+    "log_path": {
+      "type": "string",
+      "description": "Optional path for immutable verification logs (see SPECIFICATION.md section 9.2)"
+    }
+  },
+  "additionalProperties": false
+}
