@@ -31,7 +31,7 @@
 
 **5TS:** Five Tests Standard - vendor-neutral specification for verifiable AI governance. Renamed from 4TS (Four Tests Standard) in v1.2.0, which added Provenance as a fifth normative test.
 
-**Attestation:** Cryptographic proof of authority, timing, and integrity using digital signatures.
+**Attestation:** Signed, tamper-evident evidence of authority, timing, and integrity using digital signatures.
 
 **Canonical Hash:** SHA-256 hash computed over the canonicalized (deterministic, order-independent) JSON representation of a PCD.
 
@@ -69,9 +69,8 @@
 **Version:** v1.2.0 (adds Provenance as a fifth normative test; conformance bundle unchanged at v1.0.2)  
 **Steward:** FERZ, Inc. (vendor-neutral publication)  
 **License:** CC BY-NC-ND 4.0 (specification text), MIT (schemas and test vectors)  
-**Year:** 2025  
-**Authors:** Edward Meyman (FERZ), FERZ Deterministic Governance Team  
-**Knowledge Cutoff:** 2025-11-09
+**Year:** 2025–2026  
+**Authors:** Edward Meyman (FERZ), FERZ Deterministic Governance Team
 
 ### 0.1 Design Principles
 
@@ -121,7 +120,7 @@ The following matrix maps each test to specific PCD fields, verification logic, 
 - Replay modes: State-Replay and Protocol-Replay
 - Decision boundaries: deploy | policy | inference
 - Conformance bundle: schemas + test vectors + quickstart validator
-- Reference verifier (deterministic verification engine)
+- Verifier (deterministic verification engine)
 
 ---
 
@@ -175,6 +174,8 @@ The Proof-Carrying Decision (PCD) is a canonical JSON object that encodes all in
   }
 }
 ```
+
+**Note on verdict vocabulary.** In the v1.0.2 PCD schema, ALLOW maps to `approved`, DENY maps to `denied`, and ABSTAIN maps to `escalated`. The field value `escalated` records an ABSTAIN verdict and its mandatory transfer of authority; ESCALATE is not a verdict. The verdict space is exactly ALLOW, DENY, ABSTAIN.
 
 ### 2.3 Artifacts Structure
 
@@ -263,13 +264,13 @@ The 5TS standard defines two replay modes that enable deterministic verification
 
 ## §5 Attestation and Verification
 
-Attestations provide cryptographic proof of authority, timing, and integrity. The 5TS standard requires key role separation between policy signing and runtime execution to prevent post-hoc authorization.
+Attestations provide signed, tamper-evident evidence of authority, timing, and integrity. The 5TS standard requires key role separation between policy signing and runtime execution to prevent post-hoc authorization.
 
 ### 5.1 Attestation Structure
 
 ```json
 "attestations": {
-  "canonical_hash": "SHA-256-of-canonicalized-PCD",
+  "canonical_hash": "SHA-256-of-pre-attestation-envelope",
   "signatures": [{
     "key_id": "policy-key-identifier",
     "algorithm": "EdDSA|ECDSA|RSA",
@@ -315,7 +316,17 @@ PCD canonicalization must be deterministic and order-independent:
 - Normalized whitespace (consistent spacing)
 - No undefined or null values (omit keys with null values)
 
-The canonical_hash is computed over the canonicalized JSON string and provides tamper evidence for the entire PCD structure.
+The canonical_hash provides tamper evidence for the PCD. Because the PCD contains the hash of itself, the hash material must be defined as a pre-attestation envelope rather than the raw PCD.
+
+**Hash envelope.** The canonical_hash is computed as follows:
+
+1. Take the complete PCD object.
+2. Remove the `attestations.canonical_hash` field.
+3. Replace every `attestations.signatures[].signature` value with the empty string.
+4. Canonicalize the result under the rules above.
+5. The canonical_hash is the SHA-256 digest of that canonical JSON string.
+
+Key identifiers, algorithms, roles, timestamps, and key_roles remain inside the envelope; only the self-referential hash field and the signature values are excluded. A verifier recomputes the envelope hash and compares it to the declared `attestations.canonical_hash`; inequality is `E_HASH_MISMATCH`.
 
 ---
 
@@ -379,9 +390,9 @@ Conformance to the 5TS standard is verified against the official conformance bun
 
 The conformance bundle includes:
 - **pcd.schema.json:** JSON Schema (draft 2020-12) for PCD structure
-- **verifier.config.schema.json:** Configuration schema for reference verifier
+- **verifier.config.schema.json:** Configuration schema for verifiers
 - **Test Vectors:** 3 positive cases (PCD-A1, A2, A3) and 5 negative cases (NC-1 through NC-5)
-- **Quickstart Validator:** Python reference implementation
+- **Quickstart Validator:** Python conformance validator (structural checks; cryptographic signature verification is out of scope and requires key material)
 - **Documentation:** Implementation guide and test methodology
 
 ### 7.2 Required Test Vectors
@@ -403,7 +414,7 @@ A conformant system must publish a conformance claim with the following structur
 
 **Tool@Version • PCD Major • Bundle Version • Pass Count • Manifest Hash • Logs Link**
 
-Example: `ACME-Verifier@2.1.0 • PCD-1 • Bundle-1.0.2 • 8/8 • sha256:abc123... • https://acme.com/4ts/logs`
+Example: `ACME-Verifier@2.1.0 • PCD-1 • Bundle-1.0.2 • 8/8 • sha256:abc123... • https://acme.com/5ts/logs`
 
 Conformance claims enable users to verify that a system implements 5TS correctly and provides the required governance guarantees.
 
@@ -472,14 +483,14 @@ The 5TS standard defines explicit error codes for all conformance violations. Sy
 
 | Code | Trigger | Recovery |
 |------|---------|----------|
-| E_HASH_MISMATCH | Artifact hash verification fails | Reject PCD, audit log |
+| E_HASH_MISMATCH | Artifact hash or canonical (envelope) hash verification fails | Reject PCD, audit log |
 | E_MISSING_CUSTODY | Required artifact hash missing | Reject PCD |
 | E_PREEXEC_SIGNING | policy_signed > exec_start | Reject PCD, investigate tampering |
 | E_KEY_SEPARATION | Policy and runtime keys overlap | Reject PCD, fix key config |
 | E_UNTYPED_LINEAGE | Step missing input/output types | Reject PCD, fix lineage |
 | E_STEP_REPRO_FAIL | Protocol replay step fails | Reject PCD, investigate |
 | E_SIDE_EFFECT_ON_DENIAL | Effect-token present on denial | Reject PCD, critical audit |
-| E_MISSING_EFFECT_TOKEN | No effect-token on approval | Reject PCD, fix emission |
+| E_MISSING_EFFECT_TOKEN | No effect-token on an approval that authorizes external effects | Reject PCD, fix emission |
 | E_REPLAY_NONDETERMINISTIC | Replay produces different result | Reject PCD, audit |
 | E_PROTOCOL_GATE_FAIL | Gate evaluation fails or non-deterministic | Reject PCD |
 | E_SIG_INVALID | Signature verification fails | Reject PCD, investigate |
@@ -564,7 +575,7 @@ When migrating between major versions:
 ### 11.2 Related Documents
 
 - **Deterministic AI Governance - Executive Guide:** Business rationale and minimum governance bar. 5TS is the technical standard that operationalizes these principles.
-- **FERZ Implementation Guide:** Detailed implementation guidance for FERZ systems (LASO(f), DAGS-CVCA, DELIA) that implement 5TS.
+- **FERZ Implementation Guide:** Detailed implementation guidance for FERZ systems that implement 5TS-compatible authorization artifacts.
 
 ### 11.3 Version History
 
@@ -787,7 +798,7 @@ A financial services RAG system generates an investment recommendation. This use
 
 ---
 
-© 2025 FERZ, Inc. This specification is licensed under CC BY-NC-ND 4.0.  
+© 2025–2026 FERZ, Inc. This specification is licensed under CC BY-NC-ND 4.0.  
 Schemas and test vectors are licensed under MIT License.
 
 For commercial use inquiries, contact: info@ferz.ai

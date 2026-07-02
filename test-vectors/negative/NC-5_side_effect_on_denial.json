@@ -1,0 +1,96 @@
+{
+  "pcd_spec_version": "1.0.2",
+  "decision": {
+    "id": "nc-5-side-effect-on-denial",
+    "boundary": "inference",
+    "outcome": "denied",
+    "effective_window": {
+      "start": "2025-11-15T00:00:00Z",
+      "end": "2026-11-15T00:00:00Z"
+    },
+    "routed": true,
+    "replayable": true
+  },
+  "artifacts": {
+    "models": [
+      {
+        "id": "nc-5-side-effect-on-denial-model",
+        "sha256": "23e9ef263795135be0f9dcb0d4e11a24056185d499b7db5d0c9f413f7d141c2d"
+      }
+    ],
+    "policies": [
+      {
+        "id": "nc-5-side-effect-on-denial-policy",
+        "sha256": "fd53f0db33543c3bc01ace8d18f87a1e468a21b8de6e93537898cec70d7deef9"
+      }
+    ]
+  },
+  "lineage": [
+    {
+      "id": "step-1",
+      "op": "policy_evaluation",
+      "types": {
+        "inputs": [
+          "model",
+          "policy"
+        ],
+        "outputs": [
+          "verdict"
+        ]
+      },
+      "inputs": [
+        "nc-5-side-effect-on-denial-model",
+        "nc-5-side-effect-on-denial-policy"
+      ],
+      "outputs": [
+        "nc-5-side-effect-on-denial-verdict"
+      ],
+      "policy_refs": [
+        "nc-5-side-effect-on-denial-policy"
+      ],
+      "stochastic": false
+    }
+  ],
+  "controls": {
+    "fail_closed": true,
+    "policy_dsl": "internal-v1",
+    "replay": {
+      "strategy": "state"
+    }
+  },
+  "attestations": {
+    "canonical_hash": "e0e2726b2dd4bdf63a9de46bd8afc947d3f13c71fbda304491e3984ec2321ff7",
+    "signatures": [
+      {
+        "key_id": "policy-key-001",
+        "algorithm": "EdDSA",
+        "signature": "b8cbdc9c0cc62b7173dbc4331f17921f2404998c072d5aaa5d2facee2f34746b",
+        "role": "policy"
+      },
+      {
+        "key_id": "runtime-key-005",
+        "algorithm": "EdDSA",
+        "signature": "427940ef23656e6f83f91aa6707fa4aae863756fb184b253ef0e5b771ca7d100",
+        "role": "runtime"
+      }
+    ],
+    "timestamps": {
+      "policy_signed": "2025-11-14T10:00:00Z",
+      "exec_start": "2025-11-14T10:30:00Z",
+      "exec_end": "2025-11-14T10:31:00Z"
+    },
+    "key_roles": {
+      "policy": [
+        "policy-key-001"
+      ],
+      "runtime": [
+        "runtime-key-005"
+      ]
+    }
+  },
+  "effect_token": {
+    "id": "effect-token-000413",
+    "issued_at": "2025-11-14T10:31:05Z",
+    "scope": "external_api_write"
+  }
+}

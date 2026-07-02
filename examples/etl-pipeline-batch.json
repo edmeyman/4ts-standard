@@ -1,0 +1,145 @@
+{
+  "pcd_spec_version": "1.0.2",
+  "decision": {
+    "id": "policy-etl-nightly-warehouse-load-2025-11-21",
+    "boundary": "policy",
+    "outcome": "approved",
+    "effective_window": {
+      "start": "2025-11-21T02:00:00Z",
+      "end": "2025-11-21T06:00:00Z"
+    },
+    "routed": false,
+    "replayable": true
+  },
+  "artifacts": {
+    "policies": [
+      {
+        "id": "warehouse-write-policy-v12",
+        "sha256": "4424116648058e7e133428740d94f5977220e973d1dec61b930c0352b760386e"
+      }
+    ],
+    "config": [
+      {
+        "id": "etl-job-config-nightly-v3",
+        "sha256": "9199824c791d8647ca01bf1414550899507c9e7702f990b44704c728868158e6"
+      }
+    ],
+    "data": [
+      {
+        "id": "source-extract-2025-11-20",
+        "sha256": "5d5922b4c522e397dbf7f72c09e0727034c538d47df8b8b3a39a22b22c517857"
+      },
+      {
+        "id": "target-table-snapshot-pre-load",
+        "sha256": "4c766275f232d4d42ffd264ac8968718a72c4a618806ed5a1e00cb5d968b7b7e"
+      }
+    ]
+  },
+  "lineage": [
+    {
+      "id": "step-1-extract",
+      "op": "batch_extract",
+      "types": {
+        "inputs": [
+          "source_table"
+        ],
+        "outputs": [
+          "extract"
+        ]
+      },
+      "inputs": [
+        "source-orders-table"
+      ],
+      "outputs": [
+        "source-extract-2025-11-20"
+      ],
+      "policy_refs": [
+        "warehouse-write-policy-v12"
+      ],
+      "stochastic": false
+    },
+    {
+      "id": "step-2-transform",
+      "op": "deterministic_transform",
+      "types": {
+        "inputs": [
+          "extract"
+        ],
+        "outputs": [
+          "load_batch"
+        ]
+      },
+      "inputs": [
+        "source-extract-2025-11-20"
+      ],
+      "outputs": [
+        "load-batch-2025-11-21"
+      ],
+      "policy_refs": [
+        "warehouse-write-policy-v12"
+      ],
+      "stochastic": false
+    },
+    {
+      "id": "step-3-load",
+      "op": "warehouse_write",
+      "types": {
+        "inputs": [
+          "load_batch",
+          "table_snapshot"
+        ],
+        "outputs": [
+          "write_commit"
+        ]
+      },
+      "inputs": [
+        "load-batch-2025-11-21",
+        "target-table-snapshot-pre-load"
+      ],
+      "outputs": [
+        "write-commit-2025-11-21"
+      ],
+      "policy_refs": [
+        "warehouse-write-policy-v12"
+      ],
+      "stochastic": false
+    }
+  ],
+  "controls": {
+    "fail_closed": true,
+    "policy_dsl": "internal-v1",
+    "replay": {
+      "strategy": "state"
+    }
+  },
+  "attestations": {
+    "canonical_hash": "07c0fb241e3443f9e1ab645b607f4f349a1efe1c24bdabb0a37243415145829d",
+    "signatures": [
+      {
+        "key_id": "policy-key-007",
+        "algorithm": "ECDSA",
+        "signature": "2ab61a5e9874b13cb6ee1e377f027d07ee3a23e59c01ab996e47e5944b9cce37",
+        "role": "policy"
+      },
+      {
+        "key_id": "runtime-key-022",
+        "algorithm": "ECDSA",
+        "signature": "f8f756fa8b34d4c5a17d6717f398a3a6d9e88e758ddabec0d21691c2dfbaed03",
+        "role": "runtime"
+      }
+    ],
+    "timestamps": {
+      "policy_signed": "2025-11-20T17:00:00Z",
+      "exec_start": "2025-11-21T02:00:05Z",
+      "exec_end": "2025-11-21T03:42:10Z"
+    },
+    "key_roles": {
+      "policy": [
+        "policy-key-007"
+      ],
+      "runtime": [
+        "runtime-key-022"
+      ]
+    }
+  }
+}

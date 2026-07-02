@@ -139,10 +139,9 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
-pip install -r requirements-dev.txt
 
-# Run tests
-python -m pytest tests/
+# Run the conformance suite
+python tools/validator/quickstart_validate.py --all
 ```
 
 ### Testing Requirements
@@ -167,17 +166,11 @@ All contributions must include appropriate tests:
 ### Running Tests
 
 ```bash
-# Run full test suite
-pytest tests/
-
-# Run specific test file
-pytest tests/test_validator.py
-
-# Run with coverage
-pytest --cov=tools --cov-report=html
-
-# Run conformance tests
+# Run the full conformance suite (8 vectors) and validate examples
 python tools/validator/quickstart_validate.py --all
+
+# Validate a single PCD
+python tools/validator/quickstart_validate.py --json examples/model-deployment-state-replay.json
 ```
 
 ### Code Style
@@ -310,7 +303,7 @@ Contributors are recognized through:
 **Questions:**
 - GitHub Discussions for general questions
 - GitHub Issues for specific problems
-- Email contact@ferzconsulting.com for private inquiries
+- Email info@ferz.ai for private inquiries
 
 **Resources:**
 - [Quick Start Guide](docs/quickstart.md)
@@ -332,12 +325,12 @@ See [LICENSE.md](LICENSE.md) for complete terms.
 ## Contact
 
 - **Technical Questions:** GitHub Issues
-- **Licensing Questions:** contact@ferzconsulting.com
-- **Security Issues:** security@ferzconsulting.com (private disclosure)
-- **Partnership Inquiries:** contact@ferzconsulting.com
+- **Licensing Questions:** info@ferz.ai
+- **Security Issues:** info@ferz.ai (private disclosure)
+- **Partnership Inquiries:** info@ferz.ai
 
 ---
 
 Thank you for contributing to 5TS! Together we're building critical infrastructure for verifiable AI governance.
 
-**© 2025 FERZ, Inc.**
+**© 2025–2026 FERZ, Inc.**

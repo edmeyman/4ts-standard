@@ -1,0 +1,91 @@
+{
+  "pcd_spec_version": "1.0.2",
+  "decision": {
+    "id": "nc-3-key-separation",
+    "boundary": "policy",
+    "outcome": "approved",
+    "effective_window": {
+      "start": "2025-11-15T00:00:00Z",
+      "end": "2026-11-15T00:00:00Z"
+    },
+    "routed": false,
+    "replayable": true
+  },
+  "artifacts": {
+    "models": [
+      {
+        "id": "nc-3-key-separation-model",
+        "sha256": "28aa24ee57d0824d92e9a9312b85a6ff93e5233d344e9beb6877f5480ff4bfe0"
+      }
+    ],
+    "policies": [
+      {
+        "id": "nc-3-key-separation-policy",
+        "sha256": "4b21c3ab245badeae99b9aa8885266bfc42f4180002ed5e8617c9b13f9c41f31"
+      }
+    ]
+  },
+  "lineage": [
+    {
+      "id": "step-1",
+      "op": "policy_evaluation",
+      "types": {
+        "inputs": [
+          "model",
+          "policy"
+        ],
+        "outputs": [
+          "verdict"
+        ]
+      },
+      "inputs": [
+        "nc-3-key-separation-model",
+        "nc-3-key-separation-policy"
+      ],
+      "outputs": [
+        "nc-3-key-separation-verdict"
+      ],
+      "policy_refs": [
+        "nc-3-key-separation-policy"
+      ],
+      "stochastic": false
+    }
+  ],
+  "controls": {
+    "fail_closed": true,
+    "policy_dsl": "internal-v1",
+    "replay": {
+      "strategy": "state"
+    }
+  },
+  "attestations": {
+    "canonical_hash": "07aa4ed774266ffc13008e3cd5bc10731b6076f45f8d445b21e78f9289621ebd",
+    "signatures": [
+      {
+        "key_id": "shared-key-009",
+        "algorithm": "EdDSA",
+        "signature": "02ca1fa0f344d3f9387e9b0cd16640129dd6af8e3e008a70f487898e8dc1c703",
+        "role": "policy"
+      },
+      {
+        "key_id": "shared-key-009",
+        "algorithm": "EdDSA",
+        "signature": "01484a6c2eef1c290b1577342589277c75244a7f1b6414d6a47cb7f1015c22bb",
+        "role": "runtime"
+      }
+    ],
+    "timestamps": {
+      "policy_signed": "2025-11-14T10:00:00Z",
+      "exec_start": "2025-11-14T10:30:00Z",
+      "exec_end": "2025-11-14T10:31:00Z"
+    },
+    "key_roles": {
+      "policy": [
+        "shared-key-009"
+      ],
+      "runtime": [
+        "shared-key-009"
+      ]
+    }
+  }
+}

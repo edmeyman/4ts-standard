@@ -39,36 +39,72 @@
       "id": "step-1-retrieval",
       "op": "vector_search",
       "types": {
-        "inputs": ["query", "corpus"],
-        "outputs": ["retrieved_docs"]
+        "inputs": [
+          "query",
+          "corpus"
+        ],
+        "outputs": [
+          "retrieved_docs"
+        ]
       },
-      "inputs": ["user-query-87234", "corpus-snapshot-2025-11-08"],
-      "outputs": ["retrieved-docs-set-001"],
-      "policy_refs": ["sec-compliance-rag-policy"],
+      "inputs": [
+        "user-query-87234",
+        "corpus-snapshot-2025-11-08"
+      ],
+      "outputs": [
+        "retrieved-docs-set-001"
+      ],
+      "policy_refs": [
+        "sec-compliance-rag-policy"
+      ],
       "stochastic": true
     },
     {
       "id": "step-2-generation",
       "op": "llm_generate",
       "types": {
-        "inputs": ["retrieved_docs", "prompt_template"],
-        "outputs": ["recommendation"]
+        "inputs": [
+          "retrieved_docs",
+          "prompt_template"
+        ],
+        "outputs": [
+          "recommendation"
+        ]
       },
-      "inputs": ["retrieved-docs-set-001", "investment-recommendation-template"],
-      "outputs": ["recommendation-87234"],
-      "policy_refs": ["sec-compliance-rag-policy"],
+      "inputs": [
+        "retrieved-docs-set-001",
+        "investment-recommendation-template"
+      ],
+      "outputs": [
+        "recommendation-87234"
+      ],
+      "policy_refs": [
+        "sec-compliance-rag-policy"
+      ],
       "stochastic": true
     },
     {
       "id": "step-3-validation",
       "op": "validate_attribution",
       "types": {
-        "inputs": ["recommendation", "retrieved_docs"],
-        "outputs": ["attribution_score"]
+        "inputs": [
+          "recommendation",
+          "retrieved_docs"
+        ],
+        "outputs": [
+          "attribution_score"
+        ]
       },
-      "inputs": ["recommendation-87234", "retrieved-docs-set-001"],
-      "outputs": ["attribution-score-0.91"],
-      "policy_refs": ["sec-compliance-rag-policy"],
+      "inputs": [
+        "recommendation-87234",
+        "retrieved-docs-set-001"
+      ],
+      "outputs": [
+        "attribution-score-0.91"
+      ],
+      "policy_refs": [
+        "sec-compliance-rag-policy"
+      ],
       "stochastic": false
     }
   ],
@@ -98,8 +134,14 @@
     }
   },
   "attestations": {
-    "canonical_hash": "8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e",
+    "canonical_hash": "9548cbd8c4cfa88b0b610f2e56539879f47e1555c1ce95fab3cf51ae184a2ff8",
     "signatures": [
+      {
+        "key_id": "policy-key-003",
+        "algorithm": "EdDSA",
+        "signature": "9bef98aa70ab2bcaf92fc1fe25aab50499f1294c09becf5b56ae1b9c8cd3e3a9",
+        "role": "policy"
+      },
       {
         "key_id": "runtime-key-012",
         "algorithm": "EdDSA",
@@ -113,8 +155,12 @@
       "exec_end": "2025-11-08T10:15:08Z"
     },
     "key_roles": {
-      "policy": ["policy-key-003"],
-      "runtime": ["runtime-key-012"]
+      "policy": [
+        "policy-key-003"
+      ],
+      "runtime": [
+        "runtime-key-012"
+      ]
     }
   }
 }

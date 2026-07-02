@@ -1,0 +1,67 @@
+{
+  "bundle_version": "1.0.2",
+  "spec_version": "1.2.0",
+  "description": "Conformance bundle manifest for the Five Tests Standard (5TS). The bundle tests four of the five tests: Stop, Ownership, Replay, Escalation. Provenance conformance is deferred (SPECIFICATION.md section 7.4).",
+  "canonical_hash_envelope": "attestations.canonical_hash is computed over the pre-attestation envelope: the PCD with attestations.canonical_hash removed and every attestations.signatures[].signature value blanked, canonicalized (sorted keys, compact separators, UTF-8), then SHA-256 (SPECIFICATION.md section 5)",
+  "bundle_hash": {
+    "sha256": "3ae45778b1d6a961e88c38bd34665dffdd3be65d8f68e5d8237b3a8bf2a5c8c4",
+    "computation": "SHA-256 over the canonical JSON (sorted keys, compact separators) of the files array sorted by path"
+  },
+  "files": [
+    {
+      "path": "schemas/pcd.schema.json",
+      "sha256": "e9b0bd076aab53a678d96a372b8c1eefc43364c645370dd3bf371758204c961c"
+    },
+    {
+      "path": "schemas/verifier.config.schema.json",
+      "sha256": "006c01b1b41287b07f4cbb882e2b4d026150cf508ab6952628ee2a513730026a"
+    },
+    {
+      "path": "test-vectors/positive/PCD-A1_state_auto_approve.json",
+      "sha256": "fe4835863fd4c497b0a1d576aee82844f162c55361e03f0878bc61d1679ad2cf"
+    },
+    {
+      "path": "test-vectors/positive/PCD-A2_protocol_with_gates.json",
+      "sha256": "debf6caf72dff4293fd4b622c81871b21860eaacea68e30cdef4e94dbf852e17"
+    },
+    {
+      "path": "test-vectors/positive/PCD-A3_fail_closed_denial.json",
+      "sha256": "caf724f78f00b0339ddee574cd59234fd58c58630272b9382be9b51ab0178fd5"
+    },
+    {
+      "path": "test-vectors/negative/NC-1_posthoc_signature.json",
+      "sha256": "bdc1eadd35701c06e6c1eac4cc0b0505a9a7949c12eaaed7c5f998228cc09f83"
+    },
+    {
+      "path": "test-vectors/negative/NC-2_missing_custody.json",
+      "sha256": "796ee7a4f3e68b32f2ca4d4c7398b7bdea106fc0c41eb365ad9f873f026a9ecb"
+    },
+    {
+      "path": "test-vectors/negative/NC-3_key_separation.json",
+      "sha256": "0fa9ae9713001a9e2888e5163b66db55b176c70f3d144ae7d36e60ef181d2264"
+    },
+    {
+      "path": "test-vectors/negative/NC-4_untyped_lineage.json",
+      "sha256": "26737b6155dfb45c2515e626a9c9f8854be3ea16681eefeb27cec3ed60557b28"
+    },
+    {
+      "path": "test-vectors/negative/NC-5_side_effect_on_denial.json",
+      "sha256": "377c9e5aaab37aaa5218a178663638f53d77189bff7e335b9d94dc3eccbce28f"
+    },
+    {
+      "path": "tools/validator/quickstart_validate.py",
+      "sha256": "b5c6dbf0b450f6f450347dabf290ca679c8dc4c1e362ce9f19fd165710d16451"
+    }
+  ],
+  "expected_results": {
+    "PCD-A1_state_auto_approve.json": "PASS",
+    "PCD-A2_protocol_with_gates.json": "PASS",
+    "PCD-A3_fail_closed_denial.json": "PASS",
+    "NC-1_posthoc_signature.json": "E_PREEXEC_SIGNING",
+    "NC-2_missing_custody.json": "E_MISSING_CUSTODY",
+    "NC-3_key_separation.json": "E_KEY_SEPARATION",
+    "NC-4_untyped_lineage.json": "E_UNTYPED_LINEAGE",
+    "NC-5_side_effect_on_denial.json": "E_SIDE_EFFECT_ON_DENIAL"
+  },
+  "conformance_claim_format": "Tool@Version • PCD-1 • Bundle-1.0.2 • 8/8 • sha256:<bundle_hash> • <logs_url>"
+}

@@ -1,0 +1,109 @@
+{
+  "pcd_spec_version": "1.0.2",
+  "decision": {
+    "id": "pcd-a2-protocol-with-gates",
+    "boundary": "inference",
+    "outcome": "approved",
+    "effective_window": {
+      "start": "2025-11-15T00:00:00Z",
+      "end": "2026-11-15T00:00:00Z"
+    },
+    "routed": false,
+    "replayable": true
+  },
+  "artifacts": {
+    "models": [
+      {
+        "id": "pcd-a2-protocol-with-gates-model",
+        "sha256": "029f5bc210cf173fc485569436435d9a8779b252099b5908cfc466d68f173eb9"
+      }
+    ],
+    "policies": [
+      {
+        "id": "pcd-a2-protocol-with-gates-policy",
+        "sha256": "69fb0bca824477dd2428f27365e3f02a47c37ee46e89ed4f6e30c9241af3b959"
+      }
+    ]
+  },
+  "lineage": [
+    {
+      "id": "step-1",
+      "op": "policy_evaluation",
+      "types": {
+        "inputs": [
+          "model",
+          "policy"
+        ],
+        "outputs": [
+          "verdict"
+        ]
+      },
+      "inputs": [
+        "pcd-a2-protocol-with-gates-model",
+        "pcd-a2-protocol-with-gates-policy"
+      ],
+      "outputs": [
+        "pcd-a2-protocol-with-gates-verdict"
+      ],
+      "policy_refs": [
+        "pcd-a2-protocol-with-gates-policy"
+      ],
+      "stochastic": false
+    }
+  ],
+  "controls": {
+    "fail_closed": true,
+    "policy_dsl": "internal-v1",
+    "replay": {
+      "strategy": "protocol"
+    },
+    "policy_invariants": {
+      "gates": [
+        {
+          "id": "g1",
+          "metric": "accuracy",
+          "dataset": "eval_set_v2.1",
+          "op": ">=",
+          "value": 0.95
+        },
+        {
+          "id": "g2",
+          "metric": "attribution_score",
+          "dataset": "frozen_index_2025_11",
+          "op": ">=",
+          "value": 0.85
+        }
+      ]
+    }
+  },
+  "attestations": {
+    "canonical_hash": "53da806319b5991bfee80f916007162a8f45515166184e3f67830245bf90e212",
+    "signatures": [
+      {
+        "key_id": "policy-key-001",
+        "algorithm": "EdDSA",
+        "signature": "7fd998c1341a6826b15b2a79158187768760bea29421b601c0556484a0479a01",
+        "role": "policy"
+      },
+      {
+        "key_id": "runtime-key-005",
+        "algorithm": "EdDSA",
+        "signature": "2089dccb6f3bafd42800e3e4d724a5fef14d387e86628f5fadf75d7c045eff9a",
+        "role": "runtime"
+      }
+    ],
+    "timestamps": {
+      "policy_signed": "2025-11-14T10:00:00Z",
+      "exec_start": "2025-11-14T10:30:00Z",
+      "exec_end": "2025-11-14T10:31:00Z"
+    },
+    "key_roles": {
+      "policy": [
+        "policy-key-001"
+      ],
+      "runtime": [
+        "runtime-key-005"
+      ]
+    }
+  }
+}

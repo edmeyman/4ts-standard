@@ -19,22 +19,22 @@ Organizations deploying AI in regulated industries:
 - Government/defense (NIST AI RMF, DoD principles)
 - Any high-stakes environment requiring audit trails
 
-### Is 5TS free to use?
+### What parts of this repository are free to use?
 
-**Yes, with dual licensing:**
-- **Schemas/tools:** MIT License (completely free for any use)
-- **Specification text:** CC BY-NC-ND 4.0 (free for non-commercial use)
+The published schemas, examples, tools, and test vectors are MIT-licensed and may be used under that license.
 
-Commercial entities can freely implement 5TS using the MIT-licensed schemas and tools. See [LICENSE.md](../LICENSE.md) for details.
+The specification text and documentation are licensed under CC BY-NC-ND 4.0.
+
+Patent rights are reserved. Publication of this repository does not grant any express or implied license to FERZ patents or patent applications. Any implementation that requires rights under FERZ patent claims requires a separate written license from FERZ, Inc. See [LICENSE.md](../LICENSE.md) for details.
 
 ### How is 5TS different from other AI governance frameworks?
 
 | Feature | 5TS | Other Frameworks |
 |---------|-----|------------------|
 | **Verification** | Mathematical/deterministic | Policy documents |
-| **Proof** | Cryptographically signed PCDs | Attestation letters |
+| **Proof** | Signed, tamper-evident PCDs | Attestation letters |
 | **Replay** | Byte-exact or gate-based | Manual review |
-| **Vendor Neutrality** | Open standard | Often proprietary |
+| **Vendor Neutrality** | Published technical standard | Often proprietary framework |
 | **Enforcement** | Runtime (fail-closed) | Post-hoc audits |
 
 ## Technical Questions
@@ -59,7 +59,7 @@ Yes! 5TS is designed to integrate with existing workflows:
 
 ```python
 # Example: Wrap MLflow deployment with 5TS
-def deploy_with_4ts(model_uri, policy_id):
+def deploy_with_5ts(model_uri, policy_id):
     # Generate PCD before deployment
     pcd = create_deployment_pcd(
         model_uri=model_uri,
@@ -247,7 +247,7 @@ A system conforms to the v1.0.2 conformance bundle (four of the five tests; Prov
 - Implying endorsement by FERZ, Inc.
 - Creating derivative standards
 
-Contact contact@ferzconsulting.com for trademark licensing.
+Contact info@ferz.ai for trademark licensing.
 
 ### What about false conformance claims?
 
@@ -313,18 +313,29 @@ Verifiers should reject PCDs:
 
 ### Can I sell products that use 5TS?
 
-**Yes!** The schemas and tools are MIT-licensed, allowing commercial use without fees.
+The schemas, examples, tools, and test vectors are MIT-licensed and may be used commercially under that license.
+
+Patent rights are separate. Publication of this repository does not grant any express or implied license to FERZ patents or patent applications. Any implementation that requires rights under FERZ patent claims requires a separate written license from FERZ, Inc.
+
+Use of 5TS or 4TS names, marks, or conformance claims must also comply with the trademark and conformance sections of [LICENSE.md](../LICENSE.md).
 
 ### Do I need a commercial license?
 
-**Not for implementation.** Commercial licenses are only needed for:
-- Using 5TS branding in product names
-- Creating derivative specifications
-- Offering conformance to the v1.0.2 conformance bundle as a paid service
+Not for use of the MIT-licensed schemas, examples, tools, and test vectors under the MIT License.
+
+A separate written license from FERZ, Inc. may be required for:
+
+- any implementation that requires rights under FERZ patent claims;
+- use of FERZ products, proprietary implementations, services, or non-public methods;
+- use of 4TS or 5TS branding in product names;
+- creating derivative specifications where not permitted by the documentation license;
+- offering conformance services or claims in a way that implies FERZ endorsement, certification, or authorization.
+
+See the Patent Rights, Trademark, and Conformance sections of [LICENSE.md](../LICENSE.md).
 
 ### Who owns 5TS?
 
-FERZ, Inc. is the steward of the 5TS standard, maintaining it as an open, vendor-neutral specification.
+FERZ, Inc. is the steward of the 5TS standard, maintaining it as a published, vendor-neutral technical specification.
 
 ### Can I contribute to 5TS?
 
@@ -336,8 +347,8 @@ Yes! See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines. Contributions to 
 
 - **Technical questions:** [GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions)
 - **Bug reports:** [GitHub Issues](https://github.com/edmeyman/4ts-standard/issues)
-- **Email support:** contact@ferzconsulting.com
-- **Security issues:** security@ferzconsulting.com (private disclosure)
+- **Email support:** info@ferz.ai
+- **Security issues:** info@ferz.ai (private disclosure)
 
 ### Is there commercial support available?
 
@@ -347,7 +358,7 @@ Yes, FERZ, Inc. offers:
 - Training and workshops
 - Audit and conformance review
 
-Contact contact@ferzconsulting.com for information.
+Contact info@ferz.ai for information.
 
 ### How can I stay updated?
 
@@ -358,6 +369,6 @@ Contact contact@ferzconsulting.com for information.
 
 ---
 
-**Don't see your question?** [Ask in GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions) or email contact@ferzconsulting.com
+**Don't see your question?** [Ask in GitHub Discussions](https://github.com/edmeyman/4ts-standard/discussions) or email info@ferz.ai
 
-**© 2025 FERZ, Inc.** | [5TS Standard](https://github.com/edmeyman/4ts-standard)
+**© 2025–2026 FERZ, Inc.** | [5TS Standard](https://github.com/edmeyman/4ts-standard)

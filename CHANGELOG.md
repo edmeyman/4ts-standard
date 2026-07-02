@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Patent posture** — Updated the LICENSE.md Patents section to clarify that publication of the repository does not grant express or implied rights under FERZ patents or patent applications. Aligned FAQ, README, and licensing rationale text accordingly.
+
 ### Planned
 - Additional language bindings (Go, Rust, TypeScript)
 - Performance benchmarks for reference verifier
@@ -23,16 +26,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Provenance conformance status** — normative but not yet conformance-testable. The conformance bundle stays at v1.0.2 (four testable vectors); Provenance conformance and full five-test conformance are not assertable until a later bundle defines input-origin binding and validation vectors (§7.4).
 
 ### Unchanged
-- **Conformance bundle v1.0.2** — schemas, vectors, and validator are untouched. Existing four-test conformance claims remain valid. No implementation must update anything solely because v1.2.0 published.
+- **Conformance bundle v1.0.2** — the conformance target remains v1.0.2; this repository includes and reference-aligns that bundle. No Provenance vectors are added. Existing four-test conformance claims remain valid. No implementation must update anything solely because v1.2.0 published.
 
 ## [1.0.3] - 2026-02-11
 
 ### Added
 - **Enforcement Triad** — Normative verdict types (ALLOW, DENY, ABSTAIN) added to README and specification
-  - `ALLOW`: Action authorized under governing policy; execution proceeds with effect-token issuance
+  - `ALLOW`: Action authorized under governing policy; execution may proceed, with an effect-token issued where an external effect is authorized
   - `DENY`: Policy violation identified; execution halted with no side-effects permitted
-  - `ABSTAIN`: Insufficient confidence to render a verdict; authority explicitly returned with action blocked pending human resolution
-- **ABSTAIN operational contract** — `ABSTAIN` must be treated as `DENY` by default unless an authorized override occurs; triggers mandatory escalation to human-in-the-loop queue or policy authority review
+  - `ABSTAIN`: Policy cannot resolve the action to ALLOW or DENY; authority explicitly returned with the action blocked pending authorized human resolution
+- **ABSTAIN operational contract** — `ABSTAIN` blocks execution unless and until an authorized override resolves the held action; triggers mandatory escalation to an authorized human review queue or policy authority review
 - **Epistemic boundary acknowledgment** — Formal recognition that governance systems must know when *not* to answer, distinguishing completion-optimizing systems from correctness-optimizing systems
 
 ### Changed
@@ -123,7 +126,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Deploy boundary (months to years)
   - Policy boundary (weeks to months)
   - Inference boundary (milliseconds to minutes)
-- **Attestation System** - Cryptographic proof of authority (§5)
+- **Attestation System** - Signed, tamper-evident evidence of authority (§5)
   - Key role separation (policy vs runtime)
   - Timestamp ordering enforcement
   - Signature verification
@@ -180,7 +183,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Support
 - GitHub repository: https://github.com/edmeyman/4ts-standard
 - Issue tracker for bug reports and feature requests
-- Email support: contact@ferzconsulting.com
+- Email support: info@ferz.ai
 - Website: https://ferz.ai
 
 ## Future Roadmap
@@ -224,8 +227,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-**Maintained by:** FERZ Inc.  
-**Contact:** contact@ferzconsulting.com  
+**Maintained by:** FERZ, Inc.  
+**Contact:** info@ferz.ai  
 **Repository:** https://github.com/edmeyman/4ts-standard
 
 For detailed specification changes, see commit history and pull requests.

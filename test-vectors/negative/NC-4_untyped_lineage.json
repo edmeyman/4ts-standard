@@ -1,0 +1,86 @@
+{
+  "pcd_spec_version": "1.0.2",
+  "decision": {
+    "id": "nc-4-untyped-lineage",
+    "boundary": "inference",
+    "outcome": "approved",
+    "effective_window": {
+      "start": "2025-11-15T00:00:00Z",
+      "end": "2026-11-15T00:00:00Z"
+    },
+    "routed": false,
+    "replayable": true
+  },
+  "artifacts": {
+    "models": [
+      {
+        "id": "nc-4-untyped-lineage-model",
+        "sha256": "7a7beb92ecd5718c9de09311549d934441f30f697dda1fd197d0ea52dedcb12e"
+      }
+    ],
+    "policies": [
+      {
+        "id": "nc-4-untyped-lineage-policy",
+        "sha256": "b0e9c436c2d2b28499aff9ade81ba1ac09ed56924c338e3b2183bab4cb6810d2"
+      }
+    ]
+  },
+  "lineage": [
+    {
+      "id": "step-1",
+      "op": "policy_evaluation",
+      "types": {
+        "inputs": [],
+        "outputs": []
+      },
+      "inputs": [
+        "nc-4-untyped-lineage-model",
+        "nc-4-untyped-lineage-policy"
+      ],
+      "outputs": [
+        "nc-4-untyped-lineage-verdict"
+      ],
+      "policy_refs": [
+        "nc-4-untyped-lineage-policy"
+      ],
+      "stochastic": false
+    }
+  ],
+  "controls": {
+    "fail_closed": true,
+    "policy_dsl": "internal-v1",
+    "replay": {
+      "strategy": "state"
+    }
+  },
+  "attestations": {
+    "canonical_hash": "f6cb08b34a12974d3ddd621e63b0418b8ccf714ff81c2ecc0dc5dbe599716f6a",
+    "signatures": [
+      {
+        "key_id": "policy-key-001",
+        "algorithm": "EdDSA",
+        "signature": "9cb40c8e144096c0a8bbe541902ece402ecb80c2b6b99ad09ddab23c1cb75fe5",
+        "role": "policy"
+      },
+      {
+        "key_id": "runtime-key-005",
+        "algorithm": "EdDSA",
+        "signature": "037656c61b6ac9cff63ab8bf98170990b1fe2ec45a7d9869af21a82d9efed4a1",
+        "role": "runtime"
+      }
+    ],
+    "timestamps": {
+      "policy_signed": "2025-11-14T10:00:00Z",
+      "exec_start": "2025-11-14T10:30:00Z",
+      "exec_end": "2025-11-14T10:31:00Z"
+    },
+    "key_roles": {
+      "policy": [
+        "policy-key-001"
+      ],
+      "runtime": [
+        "runtime-key-005"
+      ]
+    }
+  }
+}

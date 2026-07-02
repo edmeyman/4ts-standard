@@ -1,4 +1,4 @@
-# 4TS Standard - Python Requirements
+# 5TS Standard - Python Requirements
 # For running validator and tools
 
 # Core dependencies
@@ -9,5 +9,3 @@ python-dateutil>=2.8.2
 cryptography>=41.0.0  # For signature verification
 pyyaml>=6.0  # For YAML config support
 
-# Development dependencies (install with: pip install -r requirements-dev.txt)
-# See requirements-dev.txt for testing/linting tools
