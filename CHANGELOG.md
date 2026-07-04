@@ -7,37 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-- **License file placement:** moved the root MIT LICENSE file to `tools/LICENSE` and added a file-scoped licensing note at the top of `LICENSE.md`, so the repository is no longer presented by a root MIT license file while the MIT grant remains available for schemas, examples, test vectors, and tools.
-- **Patent posture** — Updated the LICENSE.md Patents section to clarify that publication of the repository does not grant express or implied rights under FERZ patents or patent applications. Aligned FAQ, README, and licensing rationale text accordingly.
-
 ### Planned
 - Additional language bindings (Go, Rust, TypeScript)
 - Performance benchmarks for reference verifier
 - Visual PCD explorer tool
 - Interactive conformance checker
 
+## [1.2.1] - 2026-07
+
+Documentation and licensing changes only. No changes to the normative specification text or the conformance bundle; SPECIFICATION.md remains v1.2.0 and the conformance bundle remains v1.0.2.
+
+### Changed
+- **License file placement:** Moved the root MIT LICENSE file to `tools/LICENSE` and added a file-scoped licensing note at the top of `LICENSE.md`, so the repository is no longer presented by a root MIT license file while the MIT grant remains available for schemas, examples, test vectors, and tools.
+- **Patent posture:** Updated the LICENSE.md Patents section to clarify that publication of the repository does not grant express or implied rights under FERZ patents or patent applications. Aligned FAQ, README, and licensing rationale text accordingly.
+- **Punctuation normalization:** Replaced em-dash lead-ins with colons in LICENSE.md and CHANGELOG.md. No substantive changes.
+
 ## [1.2.0] - 2026-06
 
 ### Changed
-- **Renamed 4TS to 5TS** — the Four Tests Standard becomes the Five Tests Standard. "4TS" remains valid as the historical name for versions through 1.0.x.
+- **Renamed 4TS to 5TS:** The Four Tests Standard becomes the Five Tests Standard. "4TS" remains valid as the historical name for versions through 1.0.x.
 
 ### Added
-- **PROVENANCE** — fifth normative test. The inputs a verdict rests on have an established origin; a control must not ground a verdict on inputs whose origin cannot be established. Provenance is origin, not truth (§1.1, §1.4).
-- **Provenance conformance status** — normative but not yet conformance-testable. The conformance bundle stays at v1.0.2 (four testable vectors); Provenance conformance and full five-test conformance are not assertable until a later bundle defines input-origin binding and validation vectors (§7.4).
+- **PROVENANCE:** Fifth normative test. The inputs a verdict rests on have an established origin; a control must not ground a verdict on inputs whose origin cannot be established. Provenance is origin, not truth (§1.1, §1.4).
+- **Provenance conformance status:** Normative but not yet conformance-testable. The conformance bundle stays at v1.0.2 (four testable vectors); Provenance conformance and full five-test conformance are not assertable until a later bundle defines input-origin binding and validation vectors (§7.4).
 
 ### Unchanged
-- **Conformance bundle v1.0.2** — the conformance target remains v1.0.2; this repository includes and reference-aligns that bundle. No Provenance vectors are added. Existing four-test conformance claims remain valid. No implementation must update anything solely because v1.2.0 published.
+- **Conformance bundle v1.0.2:** The conformance target remains v1.0.2; this repository includes and reference-aligns that bundle. No Provenance vectors are added. Existing four-test conformance claims remain valid. No implementation must update anything solely because v1.2.0 published.
 
 ## [1.0.3] - 2026-02-11
 
 ### Added
-- **Enforcement Triad** — Normative verdict types (ALLOW, DENY, ABSTAIN) added to README and specification
+- **Enforcement Triad:** Normative verdict types (ALLOW, DENY, ABSTAIN) added to README and specification
   - `ALLOW`: Action authorized under governing policy; execution may proceed, with an effect-token issued where an external effect is authorized
   - `DENY`: Policy violation identified; execution halted with no side-effects permitted
   - `ABSTAIN`: Policy cannot resolve the action to ALLOW or DENY; authority explicitly returned with the action blocked pending authorized human resolution
-- **ABSTAIN operational contract** — `ABSTAIN` blocks execution unless and until an authorized override resolves the held action; triggers mandatory escalation to an authorized human review queue or policy authority review
-- **Epistemic boundary acknowledgment** — Formal recognition that governance systems must know when *not* to answer, distinguishing completion-optimizing systems from correctness-optimizing systems
+- **ABSTAIN operational contract:** `ABSTAIN` blocks execution unless and until an authorized override resolves the held action; triggers mandatory escalation to an authorized human review queue or policy authority review
+- **Epistemic boundary acknowledgment:** Formal recognition that governance systems must know when *not* to answer, distinguishing completion-optimizing systems from correctness-optimizing systems
 
 ### Changed
 - Updated README with new "The Enforcement Triad" section between The Four Tests table and Quick Start

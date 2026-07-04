@@ -16,10 +16,10 @@ The 5TS standard uses dual licensing to balance open access with appropriate pro
 - All explanatory text and narrative content
 
 **Summary:**
-- ✅ **Share** — Copy and redistribute the specification in any medium or format
-- ✅ **Attribution** — Credit must be given to FERZ, Inc. as steward
-- ❌ **NonCommercial** — Not for commercial purposes without permission
-- ❌ **NoDerivatives** — No modified versions may be distributed
+- ✅ **Share:** Copy and redistribute the specification in any medium or format
+- ✅ **Attribution:** Credit must be given to FERZ, Inc. as steward
+- ❌ **NonCommercial:** Not for commercial purposes without permission
+- ❌ **NoDerivatives:** No modified versions may be distributed
 
 **Full License Text:** https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
