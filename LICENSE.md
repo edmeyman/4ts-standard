@@ -1,5 +1,7 @@
 # Five Tests Standard (5TS) - License
 
+> This repository contains materials under different licenses. Specification text and documentation are licensed under CC BY-NC-ND 4.0; schemas, examples, test vectors, and tools are licensed under MIT, as specified below.
+
 The 5TS standard uses dual licensing to balance open access with appropriate protections:
 
 ## 1. Specification Text License

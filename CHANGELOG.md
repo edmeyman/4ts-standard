@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- **License file placement:** moved the root MIT LICENSE file to `tools/LICENSE` and added a file-scoped licensing note at the top of `LICENSE.md`, so the repository is no longer presented by a root MIT license file while the MIT grant remains available for schemas, examples, test vectors, and tools.
 - **Patent posture** — Updated the LICENSE.md Patents section to clarify that publication of the repository does not grant express or implied rights under FERZ patents or patent applications. Aligned FAQ, README, and licensing rationale text accordingly.
 
 ### Planned
