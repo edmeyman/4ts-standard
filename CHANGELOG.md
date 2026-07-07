@@ -21,6 +21,10 @@ Documentation and licensing changes only. No changes to the normative specificat
 - **License file placement:** Moved the root MIT LICENSE file to `tools/LICENSE` and added a file-scoped licensing note at the top of `LICENSE.md`, so the repository is no longer presented by a root MIT license file while the MIT grant remains available for schemas, examples, test vectors, and tools.
 - **Patent posture:** Updated the LICENSE.md Patents section to clarify that publication of the repository does not grant express or implied rights under FERZ patents or patent applications. Aligned FAQ, README, and licensing rationale text accordingly.
 - **Punctuation normalization:** Replaced em-dash lead-ins with colons in LICENSE.md and CHANGELOG.md. No substantive changes.
+- **Current-release references:** Updated the README header and standard citation block to identify the repository release as v1.2.1, with the concept DOI (10.5281/zenodo.21040295) as the pointer that always resolves to the latest release and the v1.2.0 version DOI (10.5281/zenodo.21040296) scoped to the specification. Added the v1.2.1 row to the README version history.
+
+### Notes
+- **Release integrity:** A `v1.0.3` Git tag and an associated Zenodo record created during July 2026 repository cleanup were erroneous: they pointed to post-v1.2.0 repository content under a predecessor-version label and do not represent the historical 4TS v1.0.3 release documented below (2026-02-11). The historical release itself remains valid; its state is available in the repository commit history. The erroneous tag and record are not reliable version references and are being corrected.
 
 ## [1.2.0] - 2026-06
 

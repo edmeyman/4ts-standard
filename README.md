@@ -1,6 +1,6 @@
 # Five Tests Standard (5TS) - Verifiable AI Governance
 
-**Version:** 1.2.0  
+**Release:** v1.2.1 (repository) | **Specification:** v1.2.0 | **Conformance bundle:** v1.0.2  
 **Steward:** FERZ, Inc.  
 **License:** CC BY-NC-ND 4.0 (specification/docs), MIT (schemas/examples/tools/test vectors)
 
@@ -33,9 +33,9 @@ and Proof-Carrying Decisions. SSRN. https://papers.ssrn.com/sol3/papers.cfm?abst
 
 **Cite the standard:**
 ```
-Meyman, E. (2026). The Five Tests Standard (5TS), v1.2.0. Zenodo.
-Concept DOI (all versions): https://doi.org/10.5281/zenodo.21040295
-This version (v1.2.0): https://doi.org/10.5281/zenodo.21040296
+Meyman, E. (2026). The Five Tests Standard (5TS). Zenodo.
+Concept DOI (all versions, resolves to the latest release): https://doi.org/10.5281/zenodo.21040295
+Specification version DOI (v1.2.0): https://doi.org/10.5281/zenodo.21040296
 ```
 
 ## Overview
@@ -246,8 +246,11 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
 | 1.0.2 | 2025-11 | Added traceability matrix, glossary, concrete PCD examples |
 | 1.0.3 | 2026-02 | Added Enforcement Triad (ALLOW/DENY/ABSTAIN) with ABSTAIN operational contract |
 | 1.2.0 | 2026-06 | Renamed 4TS to 5TS; added Provenance as fifth normative test; Provenance conformance deferred; conformance bundle unchanged at v1.0.2 |
+| 1.2.1 | 2026-07 | Documentation and licensing changes only; specification remains v1.2.0 and conformance bundle remains v1.0.2 |
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
+
+**Note on v1.0.3 references:** A `v1.0.3` Git tag and an associated Zenodo record created during July 2026 repository cleanup were erroneous and do not represent the historical 4TS v1.0.3 release (2026-02, Enforcement Triad). The 4TS v1.0.3 release itself, as documented above and in the changelog, remains valid history; its state is available in the repository commit history. Do not rely on the erroneous tag or record as a version reference.
 
 ## License
 
