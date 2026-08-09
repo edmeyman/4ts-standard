@@ -209,6 +209,21 @@ Create a new deploy-boundary PCD when model changes:
 }
 ```
 
+
+## Provenance Questions
+
+### Does the Provenance test cover content provenance, AI-content watermarking, or disclosure labels?
+
+No. Provenance in 5TS asks whether the inputs grounding an authorization verdict have an established origin and whether that origin claim is bound to the inputs used. Content-provenance frameworks such as C2PA record claims about a digital asset's origin and edit history. Watermarks and statutory disclosure labels may identify AI-generated or manipulated content.
+
+These mechanisms operate at the content layer; 5TS Provenance operates at the authorization-input layer. None substitutes for the others. A system can satisfy content-provenance or disclosure obligations and still fail the 5TS Provenance test, and the reverse. Establishing origin also does not, by itself, establish truth, completeness, currency, or substantive sufficiency.
+
+### Why is Provenance normative but not yet machine-checkable?
+
+The specification states the requirement; the conformance bundle tests what can be deterministically verified today. Provenance conformance vectors are deferred until input-origin binding and the associated validation rules are defined in the PCD.
+
+Conformance claims against bundle v1.0.2 cover four of the five tests and remain valid. See [SPECIFICATION.md §7.4](../SPECIFICATION.md#74-provenance-conformance-status).
+
 ## Conformance Questions
 
 ### What does conformance mean?

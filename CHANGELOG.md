@@ -13,6 +13,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Visual PCD explorer tool
 - Interactive conformance checker
 
+## [1.2.2] - 2026-08-09
+
+Documentation-only clarification. No changes to the normative specification text or the conformance bundle.
+
+### Added
+
+- Added a README scope note distinguishing 5TS input provenance from content provenance, watermarking, media labeling, and statutory content-disclosure requirements.
+- Added corresponding FAQ guidance.
+
+### Unchanged
+
+- The specification remains v1.2.0.
+- The conformance bundle remains v1.0.2.
+- Provenance conformance and full five-test conformance remain unavailable until input-origin binding and associated validation vectors are defined.
+
 ## [1.2.1] - 2026-07
 
 Documentation and licensing changes only. No changes to the normative specification text or the conformance bundle; SPECIFICATION.md remains v1.2.0 and the conformance bundle remains v1.0.2.
