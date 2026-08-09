@@ -1,6 +1,6 @@
 # Five Tests Standard (5TS) - Verifiable AI Governance
 
-**Release:** v1.2.1 (repository) | **Specification:** v1.2.0 | **Conformance bundle:** v1.0.2  
+**Release:** v1.2.2 (repository) | **Specification:** v1.2.0 | **Conformance bundle:** v1.0.2  
 **Steward:** FERZ, Inc.  
 **License:** CC BY-NC-ND 4.0 (specification/docs), MIT (schemas/examples/tools/test vectors)
 
@@ -58,6 +58,8 @@ The Five Tests Standard (5TS) is a vendor-neutral technical specification for ve
 | **PROVENANCE** *(normative; conformance deferred)* | Inputs grounding a verdict have an established origin | Origin, not truth; conformance vectors deferred to a later bundle |
 
 > **5TS v1.2.0** specifies five normative tests. The machine-checkable conformance bundle remains **v1.0.2** and tests four of them; Provenance conformance is not yet assertable and lands in a later bundle once input-origin binding is defined. Existing four-test conformance claims remain valid.
+
+> **Scope of Provenance.** The Provenance test concerns the origin of the inputs grounding an authorization verdict. It is not a content-provenance, watermarking, or media-labeling requirement, and it makes no claim of coverage under any content-disclosure regime. Systems subject to content-provenance obligations address those separately.
 
 ## The Enforcement Triad
 
@@ -247,6 +249,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
 | 1.0.3 | 2026-02 | Added Enforcement Triad (ALLOW/DENY/ABSTAIN) with ABSTAIN operational contract |
 | 1.2.0 | 2026-06 | Renamed 4TS to 5TS; added Provenance as fifth normative test; Provenance conformance deferred; conformance bundle unchanged at v1.0.2 |
 | 1.2.1 | 2026-07 | Documentation and licensing changes only; specification remains v1.2.0 and conformance bundle remains v1.0.2 |
+| 1.2.2 | 2026-08 | Documentation only: added Provenance scope note and corresponding FAQ entry. Specification remains v1.2.0; conformance bundle remains v1.0.2 |
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
 
